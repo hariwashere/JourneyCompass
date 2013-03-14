@@ -18,11 +18,15 @@ using Microsoft.Health.ItemTypes;
 public partial class PainScaleSummary : HealthServicePage
 {
     Guid customTypeId = new Guid("a5033c9d-08cf-4204-9bd3-cb412ce39fc0");
+    List<PainScale> painScaleSummary = new List<PainScale>();
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        getROB();
+        getPainScaleSummary();
+        PopulateHeightTable();
     }
-    protected void getROB()
+
+    protected void getPainScaleSummary()
     {
         HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
 
@@ -30,16 +34,34 @@ public partial class PainScaleSummary : HealthServicePage
         searcher.Filters.Add(filter);
 
         HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
-        int pain = 999;
-        if (items != null && items.Count > 0)
+        foreach (HealthRecordItem item in items)
         {
-            CustomHealthTypeWrapper wrapper = (CustomHealthTypeWrapper)items[0];
+            CustomHealthTypeWrapper wrapper = (CustomHealthTypeWrapper)item;
             PainScale painScale = wrapper.WrappedObject as PainScale;
             if (painScale != null)
-
-                pain = painScale.PainThreshold;
+                painScaleSummary.Add(painScale);
         }
+    }
 
-        c_pscale_text.Text = String.Format("{0:F2}", pain);
+    void PopulateHeightTable()
+    {
+        c_PainSummaryTable.Rows.Clear();
+        TableRow headerRow = new TableRow();
+
+        TableHeaderCell headerPainCell = new TableHeaderCell();
+        headerPainCell.Text = "Pain Scale";
+        headerRow.Cells.Add(headerPainCell);
+
+        c_PainSummaryTable.Rows.Add(headerRow);
+
+        foreach (PainScale painScale in painScaleSummary)
+        {
+            TableRow row = new TableRow();
+            c_PainSummaryTable.Rows.Add(row);
+
+            TableCell painCell = new TableCell();
+            painCell.Text = String.Format("{0:F2}", painScale.PainThreshold);
+            row.Cells.Add(painCell);
+        }
     }
 }

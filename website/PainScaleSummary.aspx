@@ -8,10 +8,11 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    You will view the pain scale summary here
-    Last Added pain scale reading: <asp:Label ID="c_pscale_text" runat="Server"/><br />
-    </div>
+        <div>
+            You will view the pain scale summary here
+            <br />
+            <asp:Table ID="c_PainSummaryTable" runat="Server" />
+        </div>
     </form>
 </body>
 </html>
