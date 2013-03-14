@@ -46,7 +46,11 @@ public partial class PainScaleSummary : HealthServicePage
     void PopulateHeightTable()
     {
         c_PainSummaryTable.Rows.Clear();
-        TableRow headerRow = new TableRow();
+       
+        TableHeaderRow headerRow = new TableHeaderRow();
+        TableHeaderCell headerNumberCell = new TableHeaderCell();
+        headerNumberCell.Text = "Number";
+        headerRow.Cells.Add(headerNumberCell);
 
         TableHeaderCell headerPainCell = new TableHeaderCell();
         headerPainCell.Text = "Pain Scale";
@@ -54,10 +58,16 @@ public partial class PainScaleSummary : HealthServicePage
 
         c_PainSummaryTable.Rows.Add(headerRow);
 
-        foreach (PainScale painScale in painScaleSummary)
+        //foreach (PainScale painScale in painScaleSummary)
+        for (int i = 0; i < painScaleSummary.Count; i++ )
         {
+            PainScale painScale = painScaleSummary[i];
             TableRow row = new TableRow();
             c_PainSummaryTable.Rows.Add(row);
+
+            TableHeaderCell headerRowNumberCell = new TableHeaderCell();
+            headerRowNumberCell.Text = i.ToString();
+            row.Cells.Add(headerRowNumberCell);
 
             TableCell painCell = new TableCell();
             painCell.Text = String.Format("{0:F2}", painScale.PainThreshold);

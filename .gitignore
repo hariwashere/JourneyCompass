@@ -3,6 +3,7 @@ bin/
 bin-debug/
 bin-release/
 website/JourneyCompass.v11.suo
+website/App_Data
 
 # Other files and folders
 .settings/
