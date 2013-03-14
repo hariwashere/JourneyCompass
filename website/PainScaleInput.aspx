@@ -8,9 +8,12 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    You should enter the pain scale here
-    </div>
+        <div>
+            You should enter the pain scale here
+            <br />
+            <asp:TextBox ID="c_Pain" runat="server" />
+            <asp:Button ID="c_AddPainScale" Text="Add Pain Scale Entry" OnClick="addPainScale" runat="server"/>
+        </div>
     </form>
 </body>
 </html>

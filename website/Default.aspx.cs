@@ -24,7 +24,7 @@ using Microsoft.Health.ItemTypes;
 
 public partial class _Default : HealthServicePage
 {
-    Guid customTypeId = new Guid("a5033c9d-08cf-4204-9bd3-cb412ce39fc0");
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (IsPostBack)
@@ -55,13 +55,18 @@ public partial class _Default : HealthServicePage
         Response.Redirect("PainScaleInput.aspx");
     }
 
-    //protected void AddHeightEntry()
-    //{
-    //    String heightText = c_Height.Text;
-    //    Length value = new Length(Convert.ToDouble(heightText));
-    //    Height height = new Height(new HealthServiceDateTime(DateTime.Now), value);
-    //    PersonInfo.SelectedRecord.NewItem(height);
-    //}
+    protected void viewPainScale(object sender, EventArgs e)
+    {
+        Response.Redirect("PainScaleSummary.aspx");
+    }
+
+    protected void AddHeightEntry()
+    {
+        String heightText = "22";//c_Height.Text;
+        Length value = new Length(Convert.ToDouble(heightText));
+        Height height = new Height(new HealthServiceDateTime(DateTime.Now), value);
+        PersonInfo.SelectedRecord.NewItem(height);
+    }
 
     //protected void AddPeakFlowZone()
     //{
