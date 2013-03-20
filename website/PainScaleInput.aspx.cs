@@ -21,8 +21,6 @@ public partial class PainScaleInput : HealthServicePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        int a = 0;
-        a = a + 1;
     }
 
     protected void addPainScale(object sender, EventArgs e)
