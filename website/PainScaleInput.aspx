@@ -9,9 +9,21 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            You should enter the pain scale here
+            Pain scale: 
+            <asp:TextBox ID="c_pain" runat="server" />
             <br />
-            <asp:TextBox ID="c_Pain" runat="server" />
+            Nausea scale: 
+            <asp:TextBox ID="c_nausea" runat="server" />
+            <br />
+            Fatigue scale: 
+            <asp:TextBox ID="c_fatigue" runat="server" />
+            <br />
+            Constipation scale: 
+            <asp:TextBox ID="c_constipation" runat="server" />
+            <br />
+            Sleep scale: 
+            <asp:TextBox ID="c_sleep" runat="server" />
+            <br />
             <asp:Button ID="c_AddPainScale" Text="Add Pain Scale Entry" OnClick="addPainScale" runat="server"/>
         </div>
     </form>

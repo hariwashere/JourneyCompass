@@ -25,7 +25,13 @@ public partial class PainScaleInput : HealthServicePage
 
     protected void addPainScale(object sender, EventArgs e)
     {
-        PainScale painScale = new PainScale(Convert.ToInt32(c_Pain.Text));
+        PainScale painScale = new PainScale();
+        painScale.PainThreshold = Convert.ToInt32(c_pain.Text);
+        painScale.NauseaThreshold = Convert.ToInt32(c_nausea.Text);
+        painScale.SleepThreshold = Convert.ToInt32(c_sleep.Text);
+        painScale.FatigueThreshold = Convert.ToInt32(c_fatigue.Text);
+        painScale.ConstipationThreshold = Convert.ToInt32(c_constipation.Text);
+
         CustomHealthTypeWrapper wrapper = new CustomHealthTypeWrapper(painScale);
         PersonInfo.SelectedRecord.NewItem(wrapper);
     }

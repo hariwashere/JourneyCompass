@@ -10,20 +10,45 @@ using System.Xml;
 public class PainScale : HealthRecordItemCustomBase
 {
     int painThreshold;
+    int fatigueThreshold;
+    int sleepThreshold;
+    int constipationThreshold;
+    int nauseaThreshold;
     DateTime when;
 
     public PainScale()
     {
-    }
-
-    public PainScale(int pain)
-    {
-        painThreshold = pain;
         when = DateTime.Now;
     }
+
     public int PainThreshold
     {
         get { return painThreshold; }
+        set { painThreshold = value; }
+    }
+
+    public int FatigueThreshold
+    {
+        get { return fatigueThreshold; }
+        set { fatigueThreshold = value; }
+    }
+
+    public int SleepThreshold
+    {
+        get { return sleepThreshold; }
+        set { sleepThreshold = value; }
+    }
+
+    public int ConstipationThreshold
+    {
+        get { return constipationThreshold; }
+        set { constipationThreshold = value; }
+    }
+
+    public int NauseaThreshold
+    {
+        get { return nauseaThreshold; }
+        set { nauseaThreshold = value; }
     }
 
     public DateTime When
@@ -35,6 +60,10 @@ public class PainScale : HealthRecordItemCustomBase
     {
         writer.WriteStartElement("PainScale");
         writer.WriteAttributeString("painThreshold", painThreshold.ToString());
+        writer.WriteAttributeString("nauseaThreshold", nauseaThreshold.ToString());
+        writer.WriteAttributeString("sleepThreshold", sleepThreshold.ToString());
+        writer.WriteAttributeString("constipationThreshold", constipationThreshold.ToString());
+        writer.WriteAttributeString("fatigueThreshold", fatigueThreshold.ToString());
         writer.WriteAttributeString("when", when.ToString());
         writer.WriteEndElement();
     }
@@ -52,6 +81,22 @@ public class PainScale : HealthRecordItemCustomBase
                 {
                     case "painThreshold":
                         painThreshold = painScale.ValueAsInt;
+                        break;
+
+                    case "nauseaThreshold":
+                        nauseaThreshold = painScale.ValueAsInt;
+                        break;
+
+                    case "sleepThreshold":
+                        sleepThreshold = painScale.ValueAsInt;
+                        break;
+
+                    case "fatigueThreshold":
+                        fatigueThreshold = painScale.ValueAsInt;
+                        break;
+
+                    case "constipationThreshold":
+                        constipationThreshold = painScale.ValueAsInt;
                         break;
 
                     case "when":

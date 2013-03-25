@@ -48,13 +48,29 @@ public partial class PainScaleSummary : HealthServicePage
         c_PainSummaryTable.Rows.Clear();
 
         TableHeaderRow headerRow = new TableHeaderRow();
-        TableHeaderCell headerNumberCell = new TableHeaderCell();
-        headerNumberCell.Text = "Number";
-        headerRow.Cells.Add(headerNumberCell);
+        TableHeaderCell headerWhenCell = new TableHeaderCell();
+        headerWhenCell.Text = "When";
+        headerRow.Cells.Add(headerWhenCell);
 
         TableHeaderCell headerPainCell = new TableHeaderCell();
         headerPainCell.Text = "Pain Scale";
         headerRow.Cells.Add(headerPainCell);
+
+        TableHeaderCell headerNauseaCell = new TableHeaderCell();
+        headerNauseaCell.Text = "Nausea Scale";
+        headerRow.Cells.Add(headerNauseaCell);
+
+        TableHeaderCell headerFatigueCell = new TableHeaderCell();
+        headerFatigueCell.Text = "Fatigue Scale";
+        headerRow.Cells.Add(headerFatigueCell);
+
+        TableHeaderCell headerSleepCell = new TableHeaderCell();
+        headerSleepCell.Text = "Sleep Scale";
+        headerRow.Cells.Add(headerSleepCell);
+
+        TableHeaderCell headerConstipationCell = new TableHeaderCell();
+        headerConstipationCell.Text = "Constipation Scale";
+        headerRow.Cells.Add(headerConstipationCell);
 
         c_PainSummaryTable.Rows.Add(headerRow);
         painScaleSummary.Sort(delegate(PainScale p1, PainScale p2) { return p1.When.CompareTo(p2.When); });
@@ -73,6 +89,23 @@ public partial class PainScaleSummary : HealthServicePage
             TableCell painCell = new TableCell();
             painCell.Text = String.Format("{0:F2}", painScale.PainThreshold);
             row.Cells.Add(painCell);
+
+            TableCell nauseaCell = new TableCell();
+            nauseaCell.Text = String.Format("{0:F2}", painScale.NauseaThreshold);
+            row.Cells.Add(nauseaCell);
+
+            TableCell fatigueCell = new TableCell();
+            fatigueCell.Text = String.Format("{0:F2}", painScale.FatigueThreshold);
+            row.Cells.Add(fatigueCell);
+
+
+            TableCell sleepCell = new TableCell();
+            sleepCell.Text = String.Format("{0:F2}", painScale.SleepThreshold);
+            row.Cells.Add(sleepCell);
+
+            TableCell constipationCell = new TableCell();
+            constipationCell.Text = String.Format("{0:F2}", painScale.ConstipationThreshold);
+            row.Cells.Add(constipationCell);
         }
     }
 }

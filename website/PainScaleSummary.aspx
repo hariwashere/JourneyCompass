@@ -14,7 +14,7 @@
                     // the categories
                     options.xAxis.categories = [];
                     $('tbody th', table).each(function (i) {
-                        if (i == 0 || i == 1)
+                        if (i < 6)
                             return;
                         options.xAxis.categories.push(this.innerHTML);
                     });
