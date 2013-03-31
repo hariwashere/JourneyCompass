@@ -28,9 +28,25 @@ public partial class PainScaleSummary : HealthServicePage
 
     protected void getPainScaleSummary()
     {
+        DateTime from;
+        DateTime to;
+        String from_date_string = from_date.Text;
+        String to_date_string = to_date.Text;
+        if (String.IsNullOrEmpty(from_date_string) || String.IsNullOrEmpty(to_date_string))
+        {
+            to = DateTime.Now;
+            from = DateTime.Now.AddDays(-7);
+        }
+        else
+        {
+            to = DateTime.Parse(to_date_string);
+            from = DateTime.Parse(from_date_string);
+        }
         HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
 
         HealthRecordFilter filter = new HealthRecordFilter(customTypeId);
+        filter.CreatedDateMax= to;
+        filter.CreatedDateMin = from;
         searcher.Filters.Add(filter);
 
         HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
@@ -76,7 +92,7 @@ public partial class PainScaleSummary : HealthServicePage
         painScaleSummary.Sort(delegate(PainScale p1, PainScale p2) { return p1.When.CompareTo(p2.When); });
 
         //foreach (PainScale painScale in painScaleSummary)
-        for (int i = 0; i < painScaleSummary.Count; i++ )
+        for (int i = 0; i < painScaleSummary.Count; i++)
         {
             PainScale painScale = painScaleSummary[i];
             TableRow row = new TableRow();

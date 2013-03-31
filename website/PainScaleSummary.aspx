@@ -7,6 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Pain Scale Summary</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script type="text/javascript">
         $(function () {
             $(document).ready(function () {
@@ -68,7 +71,15 @@
             });
 
         });
-		</script>
+    </script>
+    <script>
+        $(function () {
+            $("#from_date").datepicker();
+        });
+        $(function () {
+            $("#to_date").datepicker();
+        });
+    </script>
 </head>
 <body>
     <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -77,7 +88,15 @@
         <div>
             You can view the pain scale summary here
             <br />
-            <asp:Table ID="c_PainSummaryTable" runat="Server" />
+            Please select the date range: (Default is a week)
+            <br />
+            From Date: <asp:TextBox id="from_date" runat="server"/>
+            <br />
+            To Date: <asp:TextBox id="to_date" runat="server" />
+            <br />
+            <asp:Button ID="refresh" Text="Refresh Graph" runat="server"/>
+            <br />
+            <asp:Table ID="c_PainSummaryTable" runat="Server" hidden="true" />
         </div>
     </form>
     <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
