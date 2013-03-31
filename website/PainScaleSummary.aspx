@@ -50,7 +50,7 @@
                         type: 'line'
                     },
                     title: {
-                        text: 'Data extracted from a HTML table in the page'
+                        text: 'Symptoms Summary'
                     },
                     xAxis: {
                     },
@@ -86,13 +86,18 @@
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <form id="form1" runat="server">
         <div>
-            You can view the pain scale summary here
+            <h3>Symptoms Summary</h3>
+            <br />
+            Name: <asp:Label ID="patient_name" runat="Server"/>
             <br />
             Please select the date range: (Default is a week)
             <br />
+            <br />
             From Date: <asp:TextBox id="from_date" runat="server"/>
             <br />
+            <br />
             To Date: <asp:TextBox id="to_date" runat="server" />
+            <br />
             <br />
             <asp:Button ID="refresh" Text="Refresh Graph" runat="server"/>
             <br />

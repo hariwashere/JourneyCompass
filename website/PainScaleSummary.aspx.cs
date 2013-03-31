@@ -22,8 +22,15 @@ public partial class PainScaleSummary : HealthServicePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        populatePatientData();
         getPainScaleSummary();
         PopulateHeightTable();
+    }
+
+    protected void populatePatientData()
+    {
+        patient_name.Text = PersonInfo.Name;
+
     }
 
     protected void getPainScaleSummary()
