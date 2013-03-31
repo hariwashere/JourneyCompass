@@ -39,8 +39,8 @@ public partial class PainScaleSummary : HealthServicePage
         }
         else
         {
-            to = DateTime.Parse(to_date_string);
-            from = DateTime.Parse(from_date_string);
+            to = DateTime.Parse(to_date_string + " 11:59:59 PM");
+            from = DateTime.Parse(from_date_string + " 00:00:01 AM");
         }
         HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
 
