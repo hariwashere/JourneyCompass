@@ -24,6 +24,8 @@ public partial class PainScaleSummary : HealthServicePage
     {
         populatePatientData();
         getPainScaleSummary();
+        getBasicInfo();
+        //getAddress();
         PopulateHeightTable();
     }
 
@@ -32,6 +34,27 @@ public partial class PainScaleSummary : HealthServicePage
         patient_name.Text = PersonInfo.Name;
 
     }
+
+    protected void getBasicInfo()
+    {
+        HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
+        HealthRecordFilter filter = new HealthRecordFilter(Basic.TypeId);
+        searcher.Filters.Add(filter);
+        HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
+        Basic basicInfo = (Basic)items[0];
+        dob.Text = basicInfo.BirthYear.ToString();
+        city.Text = basicInfo.City;
+        state.Text = basicInfo.StateOrProvince;
+    }
+
+    //protected void getAddress()
+    //{
+    //    HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
+    //    HealthRecordFilter filter = new HealthRecordFilter(Address.);
+    //    searcher.Filters.Add(filter);
+    //    HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
+    //    Address address = (Address) items[0];
+    //}
 
     protected void getPainScaleSummary()
     {

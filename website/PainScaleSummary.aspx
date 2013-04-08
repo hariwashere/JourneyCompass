@@ -126,6 +126,15 @@
             Name:
             <asp:Label ID="patient_name" runat="Server" />
             <br />
+             Date of Birth:
+            <asp:Label ID="dob" runat="Server" />
+            <br />
+             City:
+            <asp:Label ID="city" runat="Server" />
+            <br />
+             State:
+            <asp:Label ID="state" runat="Server" />
+            <br />
             Please select the date range: (Default is a week)
             <br />
             <br />
