@@ -16,35 +16,7 @@
 
     <script type="text/javascript" src="js/examples/js/jquery/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/examples/js/jquery/jquery-ui-1.8.17.custom.min.js"></script>
-    <script type="text/javascript" src="js/jspdf.js"></script>
-    <script type="text/javascript" src="js/libs/Deflate/adler32cs.js"></script>
-    <script type="text/javascript" src="js/libs/FileSaver.js/FileSaver.js"></script>
-    <script type="text/javascript" src="js/libs/Blob.js/BlobBuilder.js"></script>
 
-    <script type="text/javascript" src="js/jspdf.plugin.addimage.js"></script>
-
-    <script type="text/javascript" src="js/jspdf.plugin.standard_fonts_metrics.js"></script>
-    <script type="text/javascript" src="js/jspdf.plugin.split_text_to_size.js"></script>
-    <script type="text/javascript" src="js/jspdf.plugin.from_html.js"></script>
-    <script type="text/javascript" src="js/examples/js/basic.js"></script>
-
-    <script type="text/javascript">
-        var doc = new jsPDF();
-
-        // We'll make our own renderer to skip this editor
-        var specialElementHandlers = {
-            '#editor': function (element, renderer) {
-                return true;
-            }
-        };
-
-        // All units are in the set measurement for the document
-        // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
-        doc.fromHTML($('body').get(0), 15, 15, {
-            'width': 170,
-            'elementHandlers': specialElementHandlers
-        });
-    </script>
     <script type="text/javascript">
         $(function () {
             $(document).ready(function () {
