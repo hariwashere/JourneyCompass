@@ -11,12 +11,6 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="js/examples/css/smoothness/jquery-ui-1.8.17.custom.css" />
-    <link rel="stylesheet" type="text/css" href="js/examples/css/main.css" />
-
-    <script type="text/javascript" src="js/examples/js/jquery/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="js/examples/js/jquery/jquery-ui-1.8.17.custom.min.js"></script>
-
     <script type="text/javascript">
         $(function () {
             $(document).ready(function () {
@@ -75,15 +69,17 @@
                 };
 
                 Highcharts.visualize(table, options);
-                $.ajax({
-                    url: "http://localhost:8080/export/",
-                    type: "POST",
-                    data: { options: JSON.stringify(options), type: "image/png", constr: "Chart", scale: "4", name: $('#patient_name').text(), dob: $('#dob').text(), city: $('#city').text(), state: $('#state').text()},
-                    cache: false
-                    //success: function (response) {
-                    //    alert(response);
-                    //}
-                });
+                document.getElementById("export").onclick = function () {
+                    $.ajax({
+                        url: "http://localhost:8080/export/",
+                        type: "POST",
+                        data: { options: JSON.stringify(options), type: "image/png", constr: "Chart", scale: "4", name: $('#patient_name').text(), dob: $('#dob').text(), city: $('#city').text(), state: $('#state').text() },
+                        cache: false
+                        //success: function (response) {
+                        //    alert(response);
+                        //}
+                    });
+                };
             });
         });
     </script>
@@ -127,6 +123,7 @@
             <br />
             <br />
             <asp:Button ID="refresh" Text="Refresh Graph" runat="server" />
+            <input type="button" id="export" value="Send to physician" />
             <br />
             <asp:Table ID="c_PainSummaryTable" runat="Server" hidden="true" />
         </div>
