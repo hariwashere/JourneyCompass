@@ -11,8 +11,8 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="js/examples/css/smoothness/jquery-ui-1.8.17.custom.css"/>
-    <link rel="stylesheet" type="text/css" href="js/examples/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="js/examples/css/smoothness/jquery-ui-1.8.17.custom.css" />
+    <link rel="stylesheet" type="text/css" href="js/examples/css/main.css" />
 
     <script type="text/javascript" src="js/examples/js/jquery/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/examples/js/jquery/jquery-ui-1.8.17.custom.min.js"></script>
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="js/jspdf.plugin.from_html.js"></script>
     <script type="text/javascript" src="js/examples/js/basic.js"></script>
 
-    <script type ="text/javascript">
+    <script type="text/javascript">
         var doc = new jsPDF();
 
         // We'll make our own renderer to skip this editor
@@ -103,8 +103,16 @@
                 };
 
                 Highcharts.visualize(table, options);
+                $.ajax({
+                    url: "http://localhost:8080/export/",
+                    type: "POST",
+                    data: { options: JSON.stringify(options), type: "image/png", constr: "Chart", scale: "4", name: $('#patient_name').text(), dob: $('#dob').text(), city: $('#city').text(), state: $('#state').text()},
+                    cache: false
+                    //success: function (response) {
+                    //    alert(response);
+                    //}
+                });
             });
-
         });
     </script>
     <script>
@@ -126,13 +134,13 @@
             Name:
             <asp:Label ID="patient_name" runat="Server" />
             <br />
-             Date of Birth:
+            Date of Birth:
             <asp:Label ID="dob" runat="Server" />
             <br />
-             City:
+            City:
             <asp:Label ID="city" runat="Server" />
             <br />
-             State:
+            State:
             <asp:Label ID="state" runat="Server" />
             <br />
             Please select the date range: (Default is a week)
