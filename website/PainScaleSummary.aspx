@@ -71,13 +71,13 @@
                 Highcharts.visualize(table, options);
                 document.getElementById("export").onclick = function () {
                     $.ajax({
-                        url: "http://localhost:8080/export/",
+                        url: "http://localhost:8080/export/sendToPhysician",
                         type: "POST",
                         data: { options: JSON.stringify(options), type: "image/png", constr: "Chart", scale: "4", name: $('#patient_name').text(), dob: $('#dob').text(), city: $('#city').text(), state: $('#state').text() },
-                        cache: false
-                        //success: function (response) {
-                        //    alert(response);
-                        //}
+                        cache: false,
+                        success: function (response) {
+                            alert("The report was sent successfully");
+                        }
                     });
                 };
             });

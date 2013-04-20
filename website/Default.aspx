@@ -17,8 +17,8 @@
                 <%--<asp:Label ID="Heightlabel" runat="server" Text="Enter your height: "/>  <asp:TextBox ID ="c_Height" runat="server" /><br />
                 <asp:Button ID="c_AddHeightEntry" Text="Add Height Entry" runat="server"/>--%>
                 Here is what you can do<br />
-                <asp:Button ID="c_AddPainScale" Text="Add Pain Scale Entry" OnClick="addPainScale" runat="server"/>
-                <asp:Button ID="c_ViewPainHistory" Text="View Pain History" OnClick="viewPainScale" runat="server"/>
+                <asp:Button ID="c_AddPainScale" Text="Add Symptoms Entry" OnClick="addPainScale" runat="server"/>
+                <asp:Button ID="c_ViewPainHistory" Text="View Symptom History" OnClick="viewPainScale" runat="server"/>
                <%-- Last Added height: <asp:Label ID="c_height_text" runat="Server"/><br />
                 Last Added ROB: <asp:Label ID="c_rob_text" runat="Server"/><br />--%>
                 

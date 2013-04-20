@@ -73,6 +73,7 @@
 
 <body>
     <form id="form1" runat="server">
+        Attention: This tracker should not be used to report emergencies. In case of extreme symptoms please contact 911.
         <div>
             Pain scale: 
             <asp:TextBox ID="c_pain" runat="server" Text ="5"/>
@@ -99,7 +100,7 @@
             <br />
             <div id="sleep_slider"></div>
             <br />
-            <asp:Button ID="c_AddPainScale" Text="Add Pain Scale Entry" OnClick="addPainScale" runat="server" />
+            <asp:Button ID="c_AddPainScale" Text="Add Symptoms Entry" OnClick="addPainScale" runat="server" />
         </div>
     </form>
 </body>
