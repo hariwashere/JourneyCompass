@@ -59,24 +59,20 @@ public partial class PainScaleSummary : HealthServicePage
     protected void getPainScaleSummary()
     {
         DateTime from;
-        DateTime to;
+        DateTime to = DateTime.Now;
         String from_date_string = from_date.Text;
-        String to_date_string = to_date.Text;
-        if (String.IsNullOrEmpty(from_date_string) || String.IsNullOrEmpty(to_date_string))
-        {
-            to = DateTime.Now;
+        if (String.IsNullOrEmpty(from_date_string))
             from = DateTime.Now.AddDays(-7);
-        }
         else
-        {
-            to = DateTime.Parse(to_date_string + " 11:59:59 PM");
             from = DateTime.Parse(from_date_string + " 00:00:01 AM");
-        }
+
         HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
 
         HealthRecordFilter filter = new HealthRecordFilter(customTypeId);
-        filter.CreatedDateMax= to;
+        filter.CreatedDateMax = to;
         filter.CreatedDateMin = from;
+        Guid andoird_application = new Guid("6d098212-230d-4895-b2a3-63d176cef59c");
+        //filter.CreatedApplication = andoird_application;
         searcher.Filters.Add(filter);
 
         HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
@@ -84,7 +80,7 @@ public partial class PainScaleSummary : HealthServicePage
         {
             CustomHealthTypeWrapper wrapper = (CustomHealthTypeWrapper)item;
             PainScale painScale = wrapper.WrappedObject as PainScale;
-            if (painScale != null)
+            if ((painScale != null) && (painScale.When >= from))
                 painScaleSummary.Add(painScale);
         }
     }

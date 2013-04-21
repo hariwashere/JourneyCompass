@@ -10,85 +10,14 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script src="js/draw_graph.js"></script>
 
     <script type="text/javascript">
-        $(function () {
-            $(document).ready(function () {
-                Highcharts.visualize = function (table, options) {
-                    // the categories
-                    options.xAxis.categories = [];
-                    $('tbody th', table).each(function (i) {
-                        if (i < 6)
-                            return;
-                        options.xAxis.categories.push(this.innerHTML);
-                    });
-
-                    // the data series
-                    options.series = [];
-                    $('tr', table).each(function (i) {
-                        var tr = this;
-                        $('th, td', tr).each(function (j) {
-                            if (j > 0) { // skip first column
-                                if (i == 0) { // get the name and init the series
-                                    options.series[j - 1] = {
-                                        name: this.innerHTML,
-                                        data: []
-                                    };
-                                } else { // add values
-                                    options.series[j - 1].data.push(parseFloat(this.innerHTML));
-                                }
-                            }
-                        });
-                    });
-
-                    var chart = new Highcharts.Chart(options);
-                }
-
-                var table = document.getElementById('c_PainSummaryTable'),
-                options = {
-                    chart: {
-                        renderTo: 'container',
-                        type: 'line'
-                    },
-                    title: {
-                        text: 'Symptoms Summary'
-                    },
-                    xAxis: {
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Units'
-                        }
-                    },
-                    tooltip: {
-                        formatter: function () {
-                            return '<b>' + this.series.name + '</b><br/>' +
-                                this.y + ' ' + this.x.toLowerCase();
-                        }
-                    }
-                };
-
-                Highcharts.visualize(table, options);
-                document.getElementById("export").onclick = function () {
-                    $.ajax({
-                        url: "http://localhost:8080/export/sendToPhysician",
-                        type: "POST",
-                        data: { options: JSON.stringify(options), type: "image/png", constr: "Chart", scale: "4", name: $('#patient_name').text(), dob: $('#dob').text(), city: $('#city').text(), state: $('#state').text() },
-                        cache: false,
-                        success: function (response) {
-                            alert("The report was sent successfully");
-                        }
-                    });
-                };
-            });
-        });
+       
     </script>
     <script>
         $(function () {
             $("#from_date").datepicker();
-        });
-        $(function () {
-            $("#to_date").datepicker();
         });
     </script>
 </head>
@@ -118,8 +47,7 @@
             <asp:TextBox ID="from_date" runat="server" />
             <br />
             <br />
-            To Date:
-            <asp:TextBox ID="to_date" runat="server" />
+            To Date: Today
             <br />
             <br />
             <asp:Button ID="refresh" Text="Refresh Graph" runat="server" />
@@ -128,6 +56,11 @@
             <asp:Table ID="c_PainSummaryTable" runat="Server" hidden="true" />
         </div>
     </form>
-    <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    <%--<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>--%>
+    <div id="pain_graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    <div id="fatigue_graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    <div id="nausea_graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    <div id="sleep_graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    <div id="constipation_graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 </body>
 </html>
