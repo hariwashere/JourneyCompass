@@ -17,7 +17,7 @@ using Microsoft.Health.ItemTypes;
 
 
 
-public partial class PainScaleInput : HealthServicePage
+public partial class SymptomInput : HealthServicePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -37,7 +37,7 @@ public partial class PainScaleInput : HealthServicePage
     //}
 
 
-    protected void addPainScale(object sender, EventArgs e)
+    protected void addSymptoms(object sender, EventArgs e)
     {
         String[] symptomValues = new String[] { c_pain.Text, c_nausea.Text, c_sleep.Text, c_fatigue.Text, c_constipation.Text };
 

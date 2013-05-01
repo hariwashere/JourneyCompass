@@ -51,9 +51,9 @@ public partial class _Default : HealthServicePage
         //getHeight();
         //getROB();
     }
-    protected void addPainScale(object sender, EventArgs e)
+    protected void addSymptoms(object sender, EventArgs e)
     {
-        Response.Redirect("PainScaleInput.aspx");
+        Response.Redirect("SymptomInput.aspx");
     }
 
     protected void viewSymptomSummary(object sender, EventArgs e)

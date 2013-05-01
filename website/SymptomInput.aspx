@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PainScaleInput.aspx.cs" Inherits="PainScaleInput" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SymptomInput.aspx.cs" Inherits="SymptomInput" %>
 
 <!DOCTYPE html>
 
@@ -100,7 +100,7 @@
             <br />
             <div id="sleep_slider"></div>
             <br />
-            <asp:Button ID="c_AddPainScale" Text="Add Symptoms Entry" OnClick="addPainScale" runat="server" />
+            <asp:Button ID="c_AddSymptoms" Text="Add Symptoms Entry" OnClick="addSymptoms" runat="server" />
         </div>
     </form>
 </body>
