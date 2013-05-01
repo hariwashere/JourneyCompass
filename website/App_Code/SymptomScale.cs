@@ -4,9 +4,6 @@ using System.Web;
 using System.Xml.XPath;
 using System.Xml;
 
-/// <summary>
-/// Summary description for PainScale
-/// </summary>
 public class SymptomScale : HealthRecordItemCustomBase
 {
     public static String[] symptomNames = new String[] { "Pain", "Nausea", "Sleep", "Faigue", "Constipation" };

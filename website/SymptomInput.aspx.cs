@@ -23,20 +23,6 @@ public partial class SymptomInput : HealthServicePage
     {
     }
 
-    //protected void addPainScale(object sender, EventArgs e)
-    //{
-    //    PainScale painScale = new PainScale();
-    //    painScale.PainThreshold = Convert.ToInt32(c_pain.Text);
-    //    painScale.NauseaThreshold = Convert.ToInt32(c_nausea.Text);
-    //    painScale.SleepThreshold = Convert.ToInt32(c_sleep.Text);
-    //    painScale.FatigueThreshold = Convert.ToInt32(c_fatigue.Text);
-    //    painScale.ConstipationThreshold = Convert.ToInt32(c_constipation.Text);
-
-    //    CustomHealthTypeWrapper wrapper = new CustomHealthTypeWrapper(painScale);
-    //    PersonInfo.SelectedRecord.NewItem(wrapper);
-    //}
-
-
     protected void addSymptoms(object sender, EventArgs e)
     {
         String[] symptomValues = new String[] { c_pain.Text, c_nausea.Text, c_sleep.Text, c_fatigue.Text, c_constipation.Text };

@@ -17,16 +17,14 @@ using Microsoft.Health.ItemTypes;
 
 public partial class SymptomSummary : HealthServicePage
 {
-    Guid customTypeId = new Guid("a5033c9d-08cf-4204-9bd3-cb412ce39fc0");
-    List<SymptomScale> symptomScaleSummary = new List<SymptomScale>();
+     List<SymptomScale> symptomScaleSummary = new List<SymptomScale>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         populatePatientData();
         getSymptomSummary();
         getBasicInfo();
-        //getAddress();
-        PopulateHeightTable();
+        PopulateSymptomTable();
     }
 
     protected void populatePatientData()
@@ -46,44 +44,6 @@ public partial class SymptomSummary : HealthServicePage
         city.Text = basicInfo.City;
         state.Text = basicInfo.StateOrProvince;
     }
-
-    //protected void getAddress()
-    //{
-    //    HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
-    //    HealthRecordFilter filter = new HealthRecordFilter(Address.);
-    //    searcher.Filters.Add(filter);
-    //    HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
-    //    Address address = (Address) items[0];
-    //}
-
-    //protected void getPainScaleSummary()
-    //{
-    //    DateTime from;
-    //    DateTime to = DateTime.Now;
-    //    String from_date_string = from_date.Text;
-    //    if (String.IsNullOrEmpty(from_date_string))
-    //        from = DateTime.Now.AddDays(-7);
-    //    else
-    //        from = DateTime.Parse(from_date_string + " 00:00:01 AM");
-
-    //    HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
-
-    //    HealthRecordFilter filter = new HealthRecordFilter(customTypeId);
-    //    filter.CreatedDateMax = to;
-    //    filter.CreatedDateMin = from;
-    //    Guid andoird_application = new Guid("6d098212-230d-4895-b2a3-63d176cef59c");
-    //    //filter.CreatedApplication = andoird_application;
-    //    searcher.Filters.Add(filter);
-
-    //    HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
-    //    foreach (HealthRecordItem item in items)
-    //    {
-    //        CustomHealthTypeWrapper wrapper = (CustomHealthTypeWrapper)item;
-    //        PainScale painScale = wrapper.WrappedObject as PainScale;
-    //        if ((painScale != null) && (painScale.When >= from))
-    //            painScaleSummary.Add(painScale);
-    //    }
-    //}
 
     protected void getSymptomSummary()
     {
@@ -131,7 +91,7 @@ public partial class SymptomSummary : HealthServicePage
         }
         return false;
     }
-    void PopulateHeightTable()
+    void PopulateSymptomTable()
     {
         c_PainSummaryTable.Rows.Clear();
 
@@ -163,7 +123,6 @@ public partial class SymptomSummary : HealthServicePage
         c_PainSummaryTable.Rows.Add(headerRow);
         symptomScaleSummary.Sort(delegate(SymptomScale p1, SymptomScale p2) { return p1.When.CompareTo(p2.When); });
 
-        //foreach (PainScale painScale in painScaleSummary)
         for (int i = 0; i < symptomScaleSummary.Count; i++)
         {
             SymptomScale painScale = symptomScaleSummary[i];

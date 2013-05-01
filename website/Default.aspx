@@ -14,14 +14,9 @@
                 This is the account of Mr <asp:Label ID="c_UserName" runat="Server"/><br />
                 <b>Basic Application Data</b>  <br />
                 <asp:Label ID="AppName" runat="server" Text="Application Name: " /><br />
-                <%--<asp:Label ID="Heightlabel" runat="server" Text="Enter your height: "/>  <asp:TextBox ID ="c_Height" runat="server" /><br />
-                <asp:Button ID="c_AddHeightEntry" Text="Add Height Entry" runat="server"/>--%>
                 Here is what you can do<br />
-                <asp:Button ID="c_AddPainScale" Text="Add Symptoms Entry" OnClick="addSymptoms" runat="server"/>
-                <asp:Button ID="c_ViewPainHistory" Text="View Symptom History" OnClick="viewSymptomSummary" runat="server"/>
-               <%-- Last Added height: <asp:Label ID="c_height_text" runat="Server"/><br />
-                Last Added ROB: <asp:Label ID="c_rob_text" runat="Server"/><br />--%>
-                
+                <asp:Button ID="c_addSymmtoms" Text="Add Symptoms Entry" OnClick="addSymptoms" runat="server"/>
+                <asp:Button ID="c_viewSymptomSummary" Text="View Symptom History" OnClick="viewSymptomSummary" runat="server"/>
             </asp:View>
             <asp:View ID="ErrorData" runat="server">
                 <asp:Label ID="Error" runat="server" Text="Error was encountered when trying to retrieve application data: " />
