@@ -15,15 +15,15 @@ using Microsoft.Health;
 using Microsoft.Health.Web;
 using Microsoft.Health.ItemTypes;
 
-public partial class PainScaleSummary : HealthServicePage
+public partial class SymptomSummary : HealthServicePage
 {
     Guid customTypeId = new Guid("a5033c9d-08cf-4204-9bd3-cb412ce39fc0");
-    List<SymptomScale> painScaleSummary = new List<SymptomScale>();
+    List<SymptomScale> symptomScaleSummary = new List<SymptomScale>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         populatePatientData();
-        getPainScaleSummary();
+        getSymptomSummary();
         getBasicInfo();
         //getAddress();
         PopulateHeightTable();
@@ -85,7 +85,7 @@ public partial class PainScaleSummary : HealthServicePage
     //    }
     //}
 
-    protected void getPainScaleSummary()
+    protected void getSymptomSummary()
     {
         DateTime from;
         DateTime to = DateTime.Now;
@@ -115,15 +115,10 @@ public partial class PainScaleSummary : HealthServicePage
                 symptomScale.NauseaThreshold = Convert.ToInt32(((Condition)items[i + 3]).Status.Text);
                 symptomScale.PainThreshold = Convert.ToInt32(((Condition)items[i + 4]).Status.Text);
                 i += 5;
-                painScaleSummary.Add(symptomScale);
+                symptomScaleSummary.Add(symptomScale);
             }
             else
                 i += 1;
-
-            //CustomHealthTypeWrapper wrapper = (CustomHealthTypeWrapper)item;
-            //PainScale painScale = wrapper.WrappedObject as PainScale;
-            //if ((painScale != null) && (painScale.When >= from))
-            //    painScaleSummary.Add(painScale);
         }
     }
 
@@ -165,12 +160,12 @@ public partial class PainScaleSummary : HealthServicePage
         headerRow.Cells.Add(headerConstipationCell);
 
         c_PainSummaryTable.Rows.Add(headerRow);
-        painScaleSummary.Sort(delegate(SymptomScale p1, SymptomScale p2) { return p1.When.CompareTo(p2.When); });
+        symptomScaleSummary.Sort(delegate(SymptomScale p1, SymptomScale p2) { return p1.When.CompareTo(p2.When); });
 
         //foreach (PainScale painScale in painScaleSummary)
-        for (int i = 0; i < painScaleSummary.Count; i++)
+        for (int i = 0; i < symptomScaleSummary.Count; i++)
         {
-            SymptomScale painScale = painScaleSummary[i];
+            SymptomScale painScale = symptomScaleSummary[i];
             TableRow row = new TableRow();
             c_PainSummaryTable.Rows.Add(row);
 

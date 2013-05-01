@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PainScaleSummary.aspx.cs" Inherits="PainScaleSummary" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SymptomSummary.aspx.cs" Inherits="SymptomSummary" %>
 
 <!DOCTYPE html>
 

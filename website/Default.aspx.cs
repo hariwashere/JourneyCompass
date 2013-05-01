@@ -56,9 +56,9 @@ public partial class _Default : HealthServicePage
         Response.Redirect("PainScaleInput.aspx");
     }
 
-    protected void viewPainScale(object sender, EventArgs e)
+    protected void viewSymptomSummary(object sender, EventArgs e)
     {
-        Response.Redirect("PainScaleSummary.aspx");
+        Response.Redirect("SymptomSummary.aspx");
     }
 
     protected void AddHeightEntry()
