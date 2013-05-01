@@ -9,6 +9,7 @@ using System.Xml;
 /// </summary>
 public class PainScale : HealthRecordItemCustomBase
 {
+    public static String[] symptomNames = new String[] { "Pain", "Nausea", "Sleep", "Faigue", "Constipation" };
     int painThreshold;
     int fatigueThreshold;
     int sleepThreshold;

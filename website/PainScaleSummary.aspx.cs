@@ -56,6 +56,35 @@ public partial class PainScaleSummary : HealthServicePage
     //    Address address = (Address) items[0];
     //}
 
+    //protected void getPainScaleSummary()
+    //{
+    //    DateTime from;
+    //    DateTime to = DateTime.Now;
+    //    String from_date_string = from_date.Text;
+    //    if (String.IsNullOrEmpty(from_date_string))
+    //        from = DateTime.Now.AddDays(-7);
+    //    else
+    //        from = DateTime.Parse(from_date_string + " 00:00:01 AM");
+
+    //    HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
+
+    //    HealthRecordFilter filter = new HealthRecordFilter(customTypeId);
+    //    filter.CreatedDateMax = to;
+    //    filter.CreatedDateMin = from;
+    //    Guid andoird_application = new Guid("6d098212-230d-4895-b2a3-63d176cef59c");
+    //    //filter.CreatedApplication = andoird_application;
+    //    searcher.Filters.Add(filter);
+
+    //    HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
+    //    foreach (HealthRecordItem item in items)
+    //    {
+    //        CustomHealthTypeWrapper wrapper = (CustomHealthTypeWrapper)item;
+    //        PainScale painScale = wrapper.WrappedObject as PainScale;
+    //        if ((painScale != null) && (painScale.When >= from))
+    //            painScaleSummary.Add(painScale);
+    //    }
+    //}
+
     protected void getPainScaleSummary()
     {
         DateTime from;
@@ -68,23 +97,44 @@ public partial class PainScaleSummary : HealthServicePage
 
         HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
 
-        HealthRecordFilter filter = new HealthRecordFilter(customTypeId);
+        HealthRecordFilter filter = new HealthRecordFilter(Condition.TypeId);
         filter.CreatedDateMax = to;
         filter.CreatedDateMin = from;
-        Guid andoird_application = new Guid("6d098212-230d-4895-b2a3-63d176cef59c");
-        //filter.CreatedApplication = andoird_application;
         searcher.Filters.Add(filter);
 
         HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
-        foreach (HealthRecordItem item in items)
+        for (int i = 0; i < items.Count; )
         {
-            CustomHealthTypeWrapper wrapper = (CustomHealthTypeWrapper)item;
-            PainScale painScale = wrapper.WrappedObject as PainScale;
-            if ((painScale != null) && (painScale.When >= from))
-                painScaleSummary.Add(painScale);
+            Condition condition = (Condition)items[i];
+            if (isSymptom(condition))
+            {
+                PainScale symptomScale = new PainScale();
+                symptomScale.ConstipationThreshold = Convert.ToInt32(((Condition)items[i]).Status.Text);
+                symptomScale.FatigueThreshold = Convert.ToInt32(((Condition)items[i + 1]).Status.Text);
+                symptomScale.SleepThreshold = Convert.ToInt32(((Condition)items[i + 2]).Status.Text);
+                symptomScale.NauseaThreshold = Convert.ToInt32(((Condition)items[i + 3]).Status.Text);
+                symptomScale.PainThreshold = Convert.ToInt32(((Condition)items[i + 4]).Status.Text);
+                i += 5;
+                painScaleSummary.Add(symptomScale);
+            }
+            else
+                i += 1;
+
+            //CustomHealthTypeWrapper wrapper = (CustomHealthTypeWrapper)item;
+            //PainScale painScale = wrapper.WrappedObject as PainScale;
+            //if ((painScale != null) && (painScale.When >= from))
+            //    painScaleSummary.Add(painScale);
         }
     }
 
+    private bool isSymptom(Condition condition)
+    {
+        foreach(String symptom in PainScale.symptomNames){
+            if(symptom.Equals(condition.Name.Text))
+                return true;
+        }
+        return false;
+    }
     void PopulateHeightTable()
     {
         c_PainSummaryTable.Rows.Clear();

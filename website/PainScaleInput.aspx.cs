@@ -39,13 +39,12 @@ public partial class PainScaleInput : HealthServicePage
 
     protected void addPainScale(object sender, EventArgs e)
     {
-        String[] symptomNames = new String[] {"Pain", "Nausea", "Sleep", "Faigue", "Consptipation"};
         String[] symptomValues = new String[] { c_pain.Text, c_nausea.Text, c_sleep.Text, c_fatigue.Text, c_constipation.Text };
 
         for (int i = 0; i < 5; i++)
         {
             Condition condition = new Condition();
-            CodableValue symptomName = new CodableValue(symptomNames[i]);
+            CodableValue symptomName = new CodableValue(PainScale.symptomNames[i]);
             condition.Name = symptomName;
             ApproximateDateTime now = new ApproximateDateTime(DateTime.Now);
             condition.OnsetDate = now;

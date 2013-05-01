@@ -7,7 +7,7 @@
     <title></title>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
     <script>
         $(function () {
             $("#pain_slider").slider({
@@ -25,8 +25,8 @@
             $("#nausea_slider").slider({
                 range: "min",
                 value: 5,
-                min: 1,
-                max: 9,
+                min: 0,
+                max: 10,
                 slide: function (event, ui) {
                     $("#c_nausea").val(ui.value);
                 }
@@ -37,8 +37,8 @@
             $("#fatigue_slider").slider({
                 range: "min",
                 value: 5,
-                min: 1,
-                max: 9,
+                min: 0,
+                max: 10,
                 slide: function (event, ui) {
                     $("#c_fatigue").val(ui.value);
                 }
@@ -49,8 +49,8 @@
             $("#sleep_slider").slider({
                 range: "min",
                 value: 5,
-                min: 1,
-                max: 9,
+                min: 0,
+                max: 10,
                 slide: function (event, ui) {
                     $("#c_sleep").val(ui.value);
                 }
@@ -61,8 +61,8 @@
             $("#constipation_slider").slider({
                 range: "min",
                 value: 5,
-                min: 1,
-                max: 9,
+                min: 0,
+                max: 10,
                 slide: function (event, ui) {
                     $("#c_constipation").val(ui.value);
                 }
