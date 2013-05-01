@@ -7,7 +7,7 @@ using System.Xml;
 /// <summary>
 /// Summary description for PainScale
 /// </summary>
-public class PainScale : HealthRecordItemCustomBase
+public class SymptomScale : HealthRecordItemCustomBase
 {
     public static String[] symptomNames = new String[] { "Pain", "Nausea", "Sleep", "Faigue", "Constipation" };
     int painThreshold;
@@ -17,7 +17,7 @@ public class PainScale : HealthRecordItemCustomBase
     int nauseaThreshold;
     DateTime when;
 
-    public PainScale()
+    public SymptomScale()
     {
         when = DateTime.Now;
     }

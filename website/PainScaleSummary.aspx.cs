@@ -18,7 +18,7 @@ using Microsoft.Health.ItemTypes;
 public partial class PainScaleSummary : HealthServicePage
 {
     Guid customTypeId = new Guid("a5033c9d-08cf-4204-9bd3-cb412ce39fc0");
-    List<PainScale> painScaleSummary = new List<PainScale>();
+    List<SymptomScale> painScaleSummary = new List<SymptomScale>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -108,7 +108,7 @@ public partial class PainScaleSummary : HealthServicePage
             Condition condition = (Condition)items[i];
             if (isSymptom(condition))
             {
-                PainScale symptomScale = new PainScale();
+                SymptomScale symptomScale = new SymptomScale();
                 symptomScale.ConstipationThreshold = Convert.ToInt32(((Condition)items[i]).Status.Text);
                 symptomScale.FatigueThreshold = Convert.ToInt32(((Condition)items[i + 1]).Status.Text);
                 symptomScale.SleepThreshold = Convert.ToInt32(((Condition)items[i + 2]).Status.Text);
@@ -129,7 +129,7 @@ public partial class PainScaleSummary : HealthServicePage
 
     private bool isSymptom(Condition condition)
     {
-        foreach(String symptom in PainScale.symptomNames){
+        foreach(String symptom in SymptomScale.symptomNames){
             if(symptom.Equals(condition.Name.Text))
                 return true;
         }
@@ -165,12 +165,12 @@ public partial class PainScaleSummary : HealthServicePage
         headerRow.Cells.Add(headerConstipationCell);
 
         c_PainSummaryTable.Rows.Add(headerRow);
-        painScaleSummary.Sort(delegate(PainScale p1, PainScale p2) { return p1.When.CompareTo(p2.When); });
+        painScaleSummary.Sort(delegate(SymptomScale p1, SymptomScale p2) { return p1.When.CompareTo(p2.When); });
 
         //foreach (PainScale painScale in painScaleSummary)
         for (int i = 0; i < painScaleSummary.Count; i++)
         {
-            PainScale painScale = painScaleSummary[i];
+            SymptomScale painScale = painScaleSummary[i];
             TableRow row = new TableRow();
             c_PainSummaryTable.Rows.Add(row);
 

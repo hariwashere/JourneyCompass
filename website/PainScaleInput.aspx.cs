@@ -44,7 +44,7 @@ public partial class PainScaleInput : HealthServicePage
         for (int i = 0; i < 5; i++)
         {
             Condition condition = new Condition();
-            CodableValue symptomName = new CodableValue(PainScale.symptomNames[i]);
+            CodableValue symptomName = new CodableValue(SymptomScale.symptomNames[i]);
             condition.Name = symptomName;
             ApproximateDateTime now = new ApproximateDateTime(DateTime.Now);
             condition.OnsetDate = now;
