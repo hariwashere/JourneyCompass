@@ -7,14 +7,14 @@
     <title></title>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
     <script>
         $(function () {
             $("#pain_slider").slider({
                 range: "min",
                 value: 5,
-                min: 1,
-                max: 9,
+                min: 0,
+                max: 10,
                 slide: function (event, ui) {
                     $("#c_pain").val(ui.value);
                 }
