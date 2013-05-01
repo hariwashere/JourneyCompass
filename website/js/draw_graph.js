@@ -48,35 +48,35 @@
         var options_pain = {
             chart: { renderTo: 'pain_graph', type: 'line' },
             title: { text: 'Pain Summary' },
-            xAxis: { categories: ['Pain'] },
+            xAxis: { categories: options.xAxis.categories },
             yAxis: { title: { text: 'Units' } },
             series: [options.series[0]]
         }
         var options_fatigue = {
             chart: { renderTo: 'fatigue_graph', type: 'line' },
             title: { text: 'Fatigue Summary' },
-            xAxis: { categories: ['Fatigue'] },
+            xAxis: { categories: options.xAxis.categories },
             yAxis: { title: { text: 'Units' } },
             series: [options.series[2]]
         }
         var options_sleep = {
             chart: { renderTo: 'sleep_graph', type: 'line' },
             title: { text: 'Sleep Summary' },
-            xAxis: { categories: ['Sleep'] },
+            xAxis: { categories: options.xAxis.categories },
             yAxis: { title: { text: 'Units' } },
             series: [options.series[3]]
         }
         var options_nausea = {
             chart: { renderTo: 'nausea_graph', type: 'line' },
             title: { text: 'Nausea Summary' },
-            xAxis: { categories: ['Nausea'] },
+            xAxis: { categories: options.xAxis.categories },
             yAxis: { title: { text: 'Units' } },
             series: [options.series[1]]
         }
         var options_constipation = {
             chart: { renderTo: 'constipation_graph', type: 'line' },
             title: { text: 'Constipation Summary' },
-            xAxis: { categories: ['Constipation'] },
+            xAxis: { categories: options.xAxis.categories },
             yAxis: { title: { text: 'Units' } },
             series: [options.series[4]]
         }
