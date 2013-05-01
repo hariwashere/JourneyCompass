@@ -55,6 +55,7 @@ public class SymptomScale : HealthRecordItemCustomBase
     public DateTime When
     {
         get { return when; }
+        set { when = value; }
     }
 
     public override void WriteXml(XmlWriter writer)

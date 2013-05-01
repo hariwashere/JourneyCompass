@@ -114,6 +114,7 @@ public partial class SymptomSummary : HealthServicePage
                 symptomScale.SleepThreshold = Convert.ToInt32(((Condition)items[i + 2]).Status.Text);
                 symptomScale.NauseaThreshold = Convert.ToInt32(((Condition)items[i + 3]).Status.Text);
                 symptomScale.PainThreshold = Convert.ToInt32(((Condition)items[i + 4]).Status.Text);
+                symptomScale.When = DateTime.Parse(condition.OnsetDate.ToString());
                 i += 5;
                 symptomScaleSummary.Add(symptomScale);
             }
