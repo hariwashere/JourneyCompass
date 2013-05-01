@@ -57,10 +57,10 @@
         </div>
     </form>
     <%--<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>--%>
-    <div id="pain_graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-    <div id="fatigue_graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-    <div id="nausea_graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-    <div id="sleep_graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-    <div id="constipation_graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    <div id="pain_graph" style="width: 800px; height: 400px; float:left"></div>
+    <div id="fatigue_graph" style="width: 800px; height: 400px; float:right"></div>
+    <div id="nausea_graph" style="width: 800px; height: 400px; float: left"></div>
+    <div id="sleep_graph" style="width: 800px; height: 400px; float:right"></div><br />
+    <div id="constipation_graph" style="width: 800px; height: 400px; float:left"></div>
 </body>
 </html>
