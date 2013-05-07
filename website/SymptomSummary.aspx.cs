@@ -94,6 +94,11 @@ public partial class SymptomSummary : HealthServicePage
     void PopulateSymptomTable()
     {
         c_PainSummaryTable.Rows.Clear();
+        nausea_summary_table.Rows.Clear();
+        TableHeaderRow nauseaHeaderRow = new TableHeaderRow();
+        TableHeaderCell nauseaWhenCell = new TableHeaderCell();
+        nauseaWhenCell.Text = "When";
+        nauseaHeaderRow.Cells.Add(nauseaWhenCell);
 
         TableHeaderRow headerRow = new TableHeaderRow();
         TableHeaderCell headerWhenCell = new TableHeaderCell();
@@ -106,7 +111,11 @@ public partial class SymptomSummary : HealthServicePage
 
         TableHeaderCell headerNauseaCell = new TableHeaderCell();
         headerNauseaCell.Text = "Nausea Scale";
-        headerRow.Cells.Add(headerNauseaCell);
+        nauseaHeaderRow.Cells.Add(headerNauseaCell);
+
+        //TableHeaderCell headerNauseaCell = new TableHeaderCell();
+        //headerNauseaCell.Text = "Nausea Scale";
+        //headerRow.Cells.Add(headerNauseaCell);
 
         TableHeaderCell headerFatigueCell = new TableHeaderCell();
         headerFatigueCell.Text = "Fatigue Scale";
@@ -121,17 +130,23 @@ public partial class SymptomSummary : HealthServicePage
         headerRow.Cells.Add(headerConstipationCell);
 
         c_PainSummaryTable.Rows.Add(headerRow);
+        nausea_summary_table.Rows.Add(nauseaHeaderRow);
         symptomScaleSummary.Sort(delegate(SymptomScale p1, SymptomScale p2) { return p1.When.CompareTo(p2.When); });
 
         for (int i = 0; i < symptomScaleSummary.Count; i++)
         {
             SymptomScale painScale = symptomScaleSummary[i];
             TableRow row = new TableRow();
+            TableRow nauseaRow = new TableRow();
             c_PainSummaryTable.Rows.Add(row);
+            nausea_summary_table.Rows.Add(nauseaRow);
 
             TableHeaderCell headerDateCell = new TableHeaderCell();
             headerDateCell.Text = painScale.When.ToString();
+            TableHeaderCell headerNauseaDateCell = new TableHeaderCell();
+            headerNauseaDateCell.Text = painScale.When.ToString();
             row.Cells.Add(headerDateCell);
+            nauseaRow.Cells.Add(headerNauseaDateCell);
 
             TableCell painCell = new TableCell();
             painCell.Text = String.Format("{0:F2}", painScale.PainThreshold);
@@ -139,7 +154,7 @@ public partial class SymptomSummary : HealthServicePage
 
             TableCell nauseaCell = new TableCell();
             nauseaCell.Text = String.Format("{0:F2}", painScale.NauseaThreshold);
-            row.Cells.Add(nauseaCell);
+            nauseaRow.Cells.Add(nauseaCell);
 
             TableCell fatigueCell = new TableCell();
             fatigueCell.Text = String.Format("{0:F2}", painScale.FatigueThreshold);

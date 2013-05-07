@@ -1,10 +1,9 @@
 ﻿$(function () {
     $(document).ready(function () {
         Highcharts.visualize = function (table, options) {
-            // the categories
             options.xAxis.categories = [];
             $('tbody th', table).each(function (i) {
-                if (i < 6)
+                if (i < 2)
                     return;
                 options.xAxis.categories.push(this.innerHTML);
             });
@@ -42,9 +41,24 @@
                         this.y + ' ' + this.x.toLowerCase();
                 }
             }
-        };       
+        };
+
+        nausea_options = {
+            chart: { renderTo: 'container', type: 'line' },
+            title: { text: 'Symptoms Summary' },
+            xAxis: {},
+            yAxis: { title: { text: 'Units' } },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        this.y + ' ' + this.x.toLowerCase();
+                }
+            }
+        };
+        var nausea_table = document.getElementById('nausea_summary_table');
 
         Highcharts.visualize(table, options);
+        Highcharts.visualize(nausea_table, nausea_options);
         var options_pain = {
             chart: { renderTo: 'pain_graph', type: 'line' },
             title: { text: 'Pain Summary' },
@@ -57,28 +71,28 @@
             title: { text: 'Fatigue Summary' },
             xAxis: { categories: options.xAxis.categories },
             yAxis: { title: { text: 'Units' } },
-            series: [options.series[2]]
+            series: [options.series[1]]
         }
         var options_sleep = {
             chart: { renderTo: 'sleep_graph', type: 'line' },
             title: { text: 'Sleep Summary' },
             xAxis: { categories: options.xAxis.categories },
             yAxis: { title: { text: 'Units' } },
-            series: [options.series[3]]
+            series: [options.series[2]]
         }
         var options_nausea = {
             chart: { renderTo: 'nausea_graph', type: 'line' },
             title: { text: 'Nausea Summary' },
-            xAxis: { categories: options.xAxis.categories },
+            xAxis: { categories: nausea_options.xAxis.categories },
             yAxis: { title: { text: 'Units' } },
-            series: [options.series[1]]
+            series: [nausea_options.series[0]]
         }
         var options_constipation = {
             chart: { renderTo: 'constipation_graph', type: 'line' },
             title: { text: 'Constipation Summary' },
             xAxis: { categories: options.xAxis.categories },
             yAxis: { title: { text: 'Units' } },
-            series: [options.series[4]]
+            series: [options.series[3]]
         }
         var pain_chart = new Highcharts.Chart(options_pain);
         var fatigue_chart = new Highcharts.Chart(options_fatigue);
