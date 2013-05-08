@@ -43,57 +43,48 @@
             }
         };
 
-        nausea_options = {
-            chart: { renderTo: 'container', type: 'line' },
-            title: { text: 'Symptoms Summary' },
-            xAxis: {},
-            yAxis: { title: { text: 'Units' } },
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + this.series.name + '</b><br/>' +
-                        this.y + ' ' + this.x.toLowerCase();
-                }
-            }
-        };
         var nausea_table = document.getElementById('nausea_summary_table');
+        var pain_table = document.getElementById('pain_summary_table');
+        var fatigue_table = document.getElementById('fatigue_summary_table');
+        var sleep_table = document.getElementById('sleep_summary_table');
+        var constipation_table = document.getElementById('constipation_summary_table');
 
-        Highcharts.visualize(table, options);
-        Highcharts.visualize(nausea_table, nausea_options);
         var options_pain = {
             chart: { renderTo: 'pain_graph', type: 'line' },
             title: { text: 'Pain Summary' },
-            xAxis: { categories: options.xAxis.categories },
-            yAxis: { title: { text: 'Units' } },
-            series: [options.series[0]]
+            xAxis: { categories: []},
+            yAxis: { title: { text: 'Units' } }
         }
         var options_fatigue = {
             chart: { renderTo: 'fatigue_graph', type: 'line' },
             title: { text: 'Fatigue Summary' },
-            xAxis: { categories: options.xAxis.categories },
-            yAxis: { title: { text: 'Units' } },
-            series: [options.series[1]]
+            xAxis: { categories: []},
+            yAxis: { title: { text: 'Units' } }
         }
         var options_sleep = {
             chart: { renderTo: 'sleep_graph', type: 'line' },
             title: { text: 'Sleep Summary' },
-            xAxis: { categories: options.xAxis.categories },
-            yAxis: { title: { text: 'Units' } },
-            series: [options.series[2]]
+            xAxis: { categories: [] },
+            yAxis: { title: { text: 'Units' } }
         }
         var options_nausea = {
             chart: { renderTo: 'nausea_graph', type: 'line' },
             title: { text: 'Nausea Summary' },
-            xAxis: { categories: nausea_options.xAxis.categories },
+            xAxis: { categories: [] },
             yAxis: { title: { text: 'Units' } },
-            series: [nausea_options.series[0]]
         }
         var options_constipation = {
             chart: { renderTo: 'constipation_graph', type: 'line' },
             title: { text: 'Constipation Summary' },
-            xAxis: { categories: options.xAxis.categories },
+            xAxis: { categories: [] },
             yAxis: { title: { text: 'Units' } },
-            series: [options.series[3]]
         }
+        Highcharts.visualize(nausea_table, options_nausea);
+        Highcharts.visualize(sleep_table, options_sleep);
+        Highcharts.visualize(pain_table, options_pain);
+        Highcharts.visualize(fatigue_table, options_fatigue);
+        Highcharts.visualize(constipation_table, options_constipation);
+
         var pain_chart = new Highcharts.Chart(options_pain);
         var fatigue_chart = new Highcharts.Chart(options_fatigue);
         var sleep_chart = new Highcharts.Chart(options_sleep);

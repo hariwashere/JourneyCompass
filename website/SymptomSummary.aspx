@@ -55,6 +55,11 @@
             <br />
             <asp:Table ID="c_PainSummaryTable" runat="Server" hidden="true" />
             <asp:Table ID="nausea_summary_table" runat="Server" hidden="true" />
+            <asp:Table ID="pain_summary_table" runat="Server" hidden="true" />
+            <asp:Table ID="fatigue_summary_table" runat="Server" hidden="true" />
+            <asp:Table ID="sleep_summary_table" runat="Server" hidden="true" />
+            <asp:Table ID="constipation_summary_table" runat="Server" hidden="true" />
+
         </div>
     </form>
     <%--<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>--%>
