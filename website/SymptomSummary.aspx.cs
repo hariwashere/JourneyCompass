@@ -81,9 +81,11 @@ public partial class SymptomSummary : HealthServicePage
                 symptom.SymptomName = condition.Name.Text;
                 symptom.SymptomValue = Convert.ToInt32(condition.Status.Text);
                 symptom.When = DateTime.Parse(condition.OnsetDate.ToString());
-                symptoms.Add(symptom);
+                if(symptom.When >= from)
+                    symptoms.Add(symptom);
             }
         }
+        symptoms.Sort(delegate(Symptom p1, Symptom p2) { return p1.When.CompareTo(p2.When); });
     }
 
     protected void PopulateSymptomTable()
