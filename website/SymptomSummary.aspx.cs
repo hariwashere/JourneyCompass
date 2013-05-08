@@ -17,7 +17,6 @@ using Microsoft.Health.ItemTypes;
 
 public partial class SymptomSummary : HealthServicePage
 {
-     List<SymptomScale> symptomScaleSummary = new List<SymptomScale>();
      List<Symptom> symptoms = new List<Symptom>();
      Dictionary<String, Table> symptomNameTable = new Dictionary<string, Table>();
 

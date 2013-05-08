@@ -30,7 +30,7 @@ public partial class SymptomInput : HealthServicePage
         for (int i = 0; i < 5; i++)
         {
             Condition condition = new Condition();
-            CodableValue symptomName = new CodableValue(SymptomScale.symptomNames[i]);
+            CodableValue symptomName = new CodableValue(Symptom.symptomNames[i]);
             condition.Name = symptomName;
             ApproximateDateTime now = new ApproximateDateTime(DateTime.Now);
             condition.OnsetDate = now;
