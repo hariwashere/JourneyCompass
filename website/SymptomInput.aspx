@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="includes/plain_theme.css" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
@@ -73,7 +74,8 @@
 
 <body>
     <form id="form1" runat="server">
-        Attention: This tracker should not be used to report emergencies. In case of extreme symptoms please contact 911.
+        Attention: This tracker should not be used to report emergencies. In case of extreme symptoms please contact 911.<br />
+        <br />
         <div>
             Pain scale: 
             <asp:TextBox ID="c_pain" runat="server" Text ="5"/>
