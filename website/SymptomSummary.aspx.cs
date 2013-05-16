@@ -24,8 +24,8 @@ public partial class SymptomSummary : HealthServicePage
     {
         initializeDictionary();
         getPatientData();
-        getSymptomSummary();
         getBasicInfo();
+        getSymptomSummary();
         PopulateSymptomTable();
     }
 

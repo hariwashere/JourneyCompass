@@ -15,6 +15,9 @@ Copyright (c) Microsoft Corporation. All rights reserved.
 /// in the URL. It uses keys (WCPage_ActionXXX) set in the Web.Config file 
 /// to look up where to redirect based on the target param.
 /// </summary>
+
+using System;
+
 public partial class Redirect : Microsoft.Health.Web.HealthServiceActionPage
 {
     //We don't want this page to require log on because when we sign out, 
@@ -26,5 +29,27 @@ public partial class Redirect : Microsoft.Health.Web.HealthServiceActionPage
         {
             return false;
         }
+    }
+
+    public const String ActionQueryStringValue = "actionqs";
+    public const String DefaultURL = "http://journeycompass.i3l.gatech.edu/default.aspx";
+
+    protected override void OnActionApplicationAuthorizationSuccessful(string action,
+     string actionQueryString)
+    {
+        String fullTargetLocation;
+        string url = Request.QueryString[ActionQueryStringValue];
+        // TODO: Validate that the URL is from home domain
+        if (url != null)
+        {
+            fullTargetLocation = url;
+        }
+        else
+        {
+            fullTargetLocation = DefaultURL + actionQueryString;
+        }
+        // we assume that the query string startswith '?'
+         
+        Response.Redirect(fullTargetLocation);
     }
 }

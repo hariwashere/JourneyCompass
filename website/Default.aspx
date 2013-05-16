@@ -12,7 +12,7 @@
         <tr>
             <td width="20" />
             <td>
-                <img src="images/JourneyCompass_1_medium.png" border="0" />
+                <img alt="title" src="images/JourneyCompass_1_medium.png" border="0" />
 
             </td>
         </tr>
@@ -21,7 +21,7 @@
         <table width="100%" border="0" cellpadding="2">
             <tr>
                 <td style="width: 30px" />
-                <td style="text-align: left"><a href="report.html">REPORT</a> | HELP</td>
+                <td style="text-align: left"><a href="SymptomSummary.aspx" target="_blank">REPORT</a> | HELP</td>
             </tr>
         </table>
     </div>
@@ -59,8 +59,8 @@
                 <td>
                     <table width="100%" border="0" cellpadding="12" cellspacing="5">
                         <tr>
-                            <td style="height:400px; vertical-align:top;">
-                                <iframe style="border:none; width:100%; height:400px;" src="SymptomInput.aspx" scrolling="auto" />
+                            <td style="height:500px; vertical-align:top;">
+                                <iframe style="border:none; width:100%; height:500px;" src="SymptomInput.aspx" scrolling="auto" />
                             </td>
                         </tr>
                     </table>

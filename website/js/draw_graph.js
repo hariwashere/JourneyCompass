@@ -53,31 +53,56 @@
             chart: { renderTo: 'pain_graph', type: 'line' },
             title: { text: 'Pain Summary' },
             xAxis: { categories: []},
-            yAxis: { title: { text: 'Units' } }
+            yAxis: {
+                title: { text: 'Scale' },
+                min: 0,
+                max: 10,
+                tickPositions: [0,1,2,3,4,5,6,7,8,9,10]
+            }
         }
         var options_fatigue = {
             chart: { renderTo: 'fatigue_graph', type: 'line' },
             title: { text: 'Fatigue Summary' },
             xAxis: { categories: []},
-            yAxis: { title: { text: 'Units' } }
+            yAxis: {
+                title: { text: 'Scale' },
+                min: 0,
+                max: 10,
+                tickPositions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            }
         }
         var options_sleep = {
             chart: { renderTo: 'sleep_graph', type: 'line' },
             title: { text: 'Sleep Summary' },
             xAxis: { categories: [] },
-            yAxis: { title: { text: 'Units' } }
+            yAxis: {
+                title: { text: 'Scale' },
+                min: 0,
+                max: 10,
+                tickPositions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            }
         }
         var options_nausea = {
             chart: { renderTo: 'nausea_graph', type: 'line' },
             title: { text: 'Nausea Summary' },
             xAxis: { categories: [] },
-            yAxis: { title: { text: 'Units' } },
+            yAxis: {
+                title: { text: 'Scale' },
+                min: 0,
+                max: 10,
+                tickPositions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            },
         }
         var options_constipation = {
             chart: { renderTo: 'constipation_graph', type: 'line' },
             title: { text: 'Constipation Summary' },
             xAxis: { categories: [] },
-            yAxis: { title: { text: 'Units' } },
+            yAxis: {
+                title: { text: 'Scale' },
+                min: 0,
+                max: 10,
+                tickPositions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            },
         }
         Highcharts.visualize(nausea_table, options_nausea);
         Highcharts.visualize(sleep_table, options_sleep);

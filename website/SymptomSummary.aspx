@@ -8,6 +8,8 @@
     <title>Symptom Summary</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="includes/theme.css" />
+
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/highcharts.src.js"></script>
@@ -21,39 +23,36 @@
     </script>
 </head>
 <body>
+    <table width="100%" border="0" cellpadding="5">
+        <tr>
+            <td width="20" />
+            <td>
+                <img src="images/JourneyCompass_1_medium.png" border="0" /></td>
+        </tr>
+    </table>
+    <div style="background: #005C8A; width:1210px; opacity: 0.3; filter: alpha(opacity=30); padding:2px 2px 2px 2px;">
+        <table style="width:1210px; border:0; padding:0;">
+            <tr>
+                <td style="text-align:center; font-size:xx-large">Symptom Summary</td>
+            </tr>
+        </table>
+    </div>
+    <br />
     <form id="form1" runat="server">
-        <div>
-            <h3>Symptoms Summary</h3>
+        <div style="margin-left:70px; margin-right:70px;">
+            Name: <asp:Label ID="patient_name" runat="Server" />
             <br />
-            Name:
-           
-            <asp:Label ID="patient_name" runat="Server" />
+            Birth Year: <asp:Label ID="dob" runat="Server" />
             <br />
-            Date of Birth:
-           
-            <asp:Label ID="dob" runat="Server" />
+            City: <asp:Label ID="city" runat="Server" />
             <br />
-            City:
-           
-            <asp:Label ID="city" runat="Server" />
+            State: <asp:Label ID="state" runat="Server" />
             <br />
-            State:
-           
-            <asp:Label ID="state" runat="Server" />
-            <br />
-            Please select the date range: (Default is a week)
-            <br />
-            From Date:
-            <asp:TextBox ID="from_date" runat="server" />
-            - 
-            To Date: Today
-           
-            <br />
-            <br />
+            Please select the date range (Default is a week): <asp:TextBox ID="from_date" runat="server" /> until Today       
+            <br /><br />
             <asp:Button ID="refresh" Text="Refresh Graph" runat="server" />
             <input type="button" id="export" value="Send to physician" />
-            <br />
-            <div style="display:none;">
+            <div style="display: none;">
                 <asp:Table ID="c_PainSummaryTable" runat="Server" hidden="true" />
                 <asp:Table ID="nausea_summary_table" runat="Server" hidden="true" />
                 <asp:Table ID="pain_summary_table" runat="Server" hidden="true" />
@@ -63,30 +62,33 @@
             </div>
         </div>
     </form>
+    <br />
     <%--<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>--%>
-    <table border="0" width="100%" cellpadding="3" cellspacing="3">
-        <tr>
-            <td>
-                <div id="pain_graph" style="width: 550px; height: 400px; float: none"></div>
-            </td>
-            <td>
-                <div id="fatigue_graph" style="width: 550px; height: 400px; float: none"></div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div id="nausea_graph" style="width: 550px; height: 400px; float: none"></div>
-            </td>
-            <td>
-                <div id="sleep_graph" style="width: 550px; height: 400px; float: none"></div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div id="constipation_graph" style="width: 550px; height: 400px; float: none"></div>
-            </td>
-            <td></td>
-        </tr>
-    </table>
+    <div style="background: #6AB2BA; width:1120px; margin-left: 50px; margin-right: 50px; margin-bottom: 50px; border: 1px solid #198895;">
+        <table border="0" width="100%" cellpadding="3" cellspacing="3">
+            <tr>
+                <td>
+                    <div id="pain_graph" style="width: 550px; height: 400px; float: none"></div>
+                </td>
+                <td>
+                    <div id="fatigue_graph" style="width: 550px; height: 400px; float: none"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="nausea_graph" style="width: 550px; height: 400px; float: none"></div>
+                </td>
+                <td>
+                    <div id="sleep_graph" style="width: 550px; height: 400px; float: none"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="constipation_graph" style="width: 550px; height: 400px; float: none"></div>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

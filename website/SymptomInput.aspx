@@ -76,33 +76,74 @@
     <form id="form1" runat="server">
         Attention: This tracker should not be used to report emergencies. In case of extreme symptoms please contact 911.<br />
         <br />
-        <div>
-            Pain scale: 
-            <asp:TextBox ID="c_pain" runat="server" Text ="5"/>
-            <br />
-            <div id="pain_slider"></div>
-            <br />
-            Nausea scale: 
-            <asp:TextBox ID="c_nausea" runat="server" Text ="5"/>
-            <br />
-            <div id="nausea_slider"></div>
-            <br />
-            Fatigue scale: 
-            <asp:TextBox ID="c_fatigue" runat="server" Text ="5"/>
-            <br />
-            <div id="fatigue_slider"></div>
-            <br />
-            Constipation scale: 
-            <asp:TextBox ID="c_constipation" runat="server" Text ="5"/>
-            <br />
-            <div id="constipation_slider"></div>
-            <br />
-            Sleep scale: 
-            <asp:TextBox ID="c_sleep" runat="server" Text ="5"/>
-            <br />
-            <div id="sleep_slider"></div>
-            <br />
-            <asp:Button ID="c_AddSymptoms" Text="Add Symptoms Entry" OnClick="addSymptoms" runat="server" />
+        <div style="margin: 10px;">
+            <table style="border:none; width:100%; padding:3px">
+                <tr>
+                    <td style="text-align:right; width:150px">Pain scale: </td>
+                    <td>
+                        <asp:TextBox ID="c_pain" runat="server" Text="5" Width="7" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="pain_slider"></div>
+                    </td>
+                </tr>
+                <tr><td colspan="2"> &nbsp;</td></tr>
+                <tr>
+                    <td style="text-align: right">Nausea scale: </td>
+                    <td>
+                        <asp:TextBox ID="c_nausea" runat="server" Text="5" Width="7" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="nausea_slider"></div>
+                    </td>
+                </tr>
+                <tr><td colspan="2"> &nbsp;</td></tr>
+                <tr>
+                    <td style="text-align: right">Fatigue scale: </td>
+                    <td>
+                        <asp:TextBox ID="c_fatigue" runat="server" Text="5" Width="7" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="fatigue_slider"></div>
+                    </td>
+                </tr>
+                <tr><td colspan="2"> &nbsp;</td></tr>
+                <tr>
+                    <td style="text-align: right">Constipation scale:</td>
+                    <td>
+                        <asp:TextBox ID="c_constipation" runat="server" Text="5" Width="7" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="constipation_slider"></div>
+                    </td>
+                </tr>
+                <tr><td colspan="2"> &nbsp;</td></tr>
+                <tr>
+                    <td style="text-align: right">Sleep scale: </td>
+                    <td>
+                        <asp:TextBox ID="c_sleep" runat="server" Text="5" Width="7" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="sleep_slider"></div>
+                    </td>
+                </tr>
+                <tr><td colspan="2"> &nbsp;</td></tr>
+                <tr>
+                    <td colspan="2">
+                        <asp:Button ID="c_AddSymptoms" Text="Add Symptoms Entry" OnClick="addSymptoms" runat="server" />
+                    </td>
+                </tr>
+            </table>
         </div>
     </form>
 </body>

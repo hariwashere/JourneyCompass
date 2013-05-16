@@ -24,10 +24,16 @@ a:hover,a:active {
 	border-bottom:1px solid #d1e7ea;
 }
 
+.myTitle {
+    text-align:center;
+	color: #FFFFFF;
+	font-family: calibri, sans-serif; font-size:25pt; font-style:normal;
+}
+
 body {
 	margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;
 	padding: 0;
 	background: url('images/light.png') no-repeat top center #198895;
 	color: #FFFFFF;
-	font-family: calibri, sans-serif; font-size:12pt; font-style:plain;
+	font-family: calibri, sans-serif; font-size:12pt; font-style:normal;
 }
