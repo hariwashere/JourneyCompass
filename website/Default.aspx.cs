@@ -38,13 +38,32 @@ public partial class _Default : HealthServicePage
             StartupData.SetActiveView(StartupData.Views[1]);
         }
     }
-    protected void addSymptoms(object sender, EventArgs e)
+
+    //protected void addSymptoms(object sender, EventArgs e)
+    //{
+    //    Response.Redirect("SymptomInput.aspx");
+    //}
+
+    //protected void viewSymptomSummary(object sender, EventArgs e)
+    protected void SignIn_DU(object sender, EventArgs e)
     {
-        Response.Redirect("SymptomInput.aspx");
+        WebApplicationUtilities.SignOut (HttpContext.Current);
     }
 
-    protected void viewSymptomSummary(object sender, EventArgs e)
+    protected void addSymptoms(object sender, EventArgs e)
     {
-        Response.Redirect("SymptomSummary.aspx");
+        String[] symptomValues = new String[] { c_pain.Text, c_nausea.Text, c_sleep.Text, c_fatigue.Text, c_constipation.Text };
+
+        for (int i = 0; i < 5; i++)
+        {
+            Condition condition = new Condition();
+            CodableValue symptomName = new CodableValue(Symptom.symptomNames[i]);
+            condition.Name = symptomName;
+            ApproximateDateTime now = new ApproximateDateTime(DateTime.Now);
+            condition.OnsetDate = now;
+            CodableValue symptomValue = new CodableValue(symptomValues[i]);
+            condition.Status = symptomValue;
+            PersonInfo.SelectedRecord.NewItem(condition);
+        }
     }
 }

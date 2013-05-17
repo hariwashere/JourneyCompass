@@ -6,12 +6,13 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Symptom Summary</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+
+    <link rel="stylesheet" type="text/css" href="jquery/css/smoothness/jquery-ui-1.10.3.custom.min.css" />
+    <script src="jquery/js/jquery-1.9.1.js"></script>
+    <script src="jquery/js/jquery-ui-1.10.3.custom.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="includes/theme.css" />
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/highcharts.src.js"></script>
     <script type="text/javascript" src="js/exporting.src.js"></script>
 
@@ -30,8 +31,8 @@
                 <img src="images/JourneyCompass_1_medium.png" border="0" /></td>
         </tr>
     </table>
-    <div style="background: #005C8A; width:1210px; opacity: 0.3; filter: alpha(opacity=30); padding:2px 2px 2px 2px;">
-        <table style="width:1210px; border:0; padding:0;">
+    <div style="background: #005C8A; width:1270px; height:50px; opacity: 0.3; filter: alpha(opacity=30); padding:2px 2px 2px 2px; overflow:auto">
+        <table style="width:1270px; border:0; padding:0;">
             <tr>
                 <td style="text-align:center; font-size:xx-large">Symptom Summary</td>
             </tr>

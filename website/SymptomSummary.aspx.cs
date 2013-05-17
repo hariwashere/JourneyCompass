@@ -17,8 +17,8 @@ using Microsoft.Health.ItemTypes;
 
 public partial class SymptomSummary : HealthServicePage
 {
-     List<Symptom> symptoms = new List<Symptom>();
-     Dictionary<String, Table> symptomNameTable = new Dictionary<string, Table>();
+    List<Symptom> symptoms = new List<Symptom>();
+    Dictionary<String, Table> symptomNameTable = new Dictionary<string, Table>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -73,7 +73,7 @@ public partial class SymptomSummary : HealthServicePage
         searcher.Filters.Add(filter);
 
         HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
-        foreach(Condition condition in items)
+        foreach (Condition condition in items)
         {
             if (isSymptom(condition))
             {
@@ -81,7 +81,7 @@ public partial class SymptomSummary : HealthServicePage
                 symptom.SymptomName = condition.Name.Text;
                 symptom.SymptomValue = Convert.ToInt32(condition.Status.Text);
                 symptom.When = DateTime.Parse(condition.OnsetDate.ToString());
-                if(symptom.When >= from)
+                if (symptom.When >= from)
                     symptoms.Add(symptom);
             }
         }
@@ -124,7 +124,8 @@ public partial class SymptomSummary : HealthServicePage
 
     protected void populateSymptomValues()
     {
-        foreach(Symptom symptom in symptoms){
+        foreach (Symptom symptom in symptoms)
+        {
             Table table = symptomNameTable[symptom.SymptomName];
             TableRow row = new TableRow();
             c_PainSummaryTable.Rows.Add(row);
@@ -142,10 +143,25 @@ public partial class SymptomSummary : HealthServicePage
 
     private bool isSymptom(Condition condition)
     {
-        foreach(String symptom in Symptom.symptomNames){
-            if(symptom.Equals(condition.Name.Text))
+        foreach (String symptom in Symptom.symptomNames)
+        {
+            if (symptom.Equals(condition.Name.Text))
                 return true;
         }
         return false;
     }
+
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+
+        if (ex is HealthServiceCredentialTokenExpiredException)
+        {
+            WebApplicationUtilities.RedirectToLogOn(HttpContext.Current);
+        }
+
+        // ShowError(ex);
+        throw ex;
+    }
+
 }

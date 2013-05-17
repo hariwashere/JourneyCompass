@@ -32,7 +32,7 @@ public partial class Redirect : Microsoft.Health.Web.HealthServiceActionPage
     }
 
     public const String ActionQueryStringValue = "actionqs";
-    public const String DefaultURL = "http://journeycompass.i3l.gatech.edu/default.aspx";
+    public const String DefaultURL = "https://journeycompass.i3l.gatech.edu/default.aspx";
 
     protected override void OnActionApplicationAuthorizationSuccessful(string action,
      string actionQueryString)
