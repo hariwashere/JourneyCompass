@@ -26,10 +26,10 @@ public partial class _Default : HealthServicePage
         }
         try
         {
-            ApplicationInfo info = ApplicationConnection.GetApplicationInfo();
-            AppName.Text += info.Name;
-            c_UserName.Text = PersonInfo.Name;
+            // ApplicationInfo info = ApplicationConnection.GetApplicationInfo();
+            // AppName.Text += info.Name;
 
+            c_UserName.Text = PersonInfo.Name;
             StartupData.SetActiveView(StartupData.Views[0]);
         }
         catch (HealthServiceException ex)
@@ -45,7 +45,7 @@ public partial class _Default : HealthServicePage
     //}
 
     //protected void viewSymptomSummary(object sender, EventArgs e)
-    protected void SignIn_DU(object sender, EventArgs e)
+    protected void SignOut(object sender, EventArgs e)
     {
         WebApplicationUtilities.SignOut (HttpContext.Current);
     }
@@ -66,4 +66,18 @@ public partial class _Default : HealthServicePage
             PersonInfo.SelectedRecord.NewItem(condition);
         }
     }
+
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+
+        if (ex is HealthServiceCredentialTokenExpiredException)
+        {
+            WebApplicationUtilities.RedirectToLogOn(HttpContext.Current);
+        }
+
+        // ShowError(ex);
+        throw ex;
+    }
+
 }

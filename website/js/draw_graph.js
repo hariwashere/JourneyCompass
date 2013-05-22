@@ -52,7 +52,10 @@
         var options_pain = {
             chart: { renderTo: 'pain_graph', type: 'line' },
             title: { text: 'Pain Summary' },
-            xAxis: { categories: []},
+            xAxis: {
+                type: 'datetime',
+                categories: []
+            },
             yAxis: {
                 title: { text: 'Scale' },
                 min: 0,
@@ -118,7 +121,7 @@
 
         document.getElementById("export").onclick = function () {
             $.ajax({
-                url: "http://localhost:8080/export/sendToPhysician",
+                url: "http://journeycompass.i3l.gatech.edu:8080/export/sendToPhysician",
                 type: "POST",
                 data: { options_pain: JSON.stringify(options_pain), options_fatigue: JSON.stringify(options_fatigue), options_sleep: JSON.stringify(options_sleep), options_nausea: JSON.stringify(options_nausea), options_constipation: JSON.stringify(options_constipation), type: "image/png", constr: "Chart", scale: "4", name: $('#patient_name').text(), dob: $('#dob').text(), city: $('#city').text(), state: $('#state').text() },
                 cache: false,

@@ -85,7 +85,7 @@
         <table width="100%" border="0" cellpadding="2">
             <tr>
                 <td style="width: 30px" />
-                <td style="text-align: left"><a href="SymptomSummary.aspx" target="_blank">REPORT</a> | <a id="A1" href="#" runat="server" onServerClick="SignIn_DU">SIGN OUT</a></td>
+                <td style="text-align: left"><a href="SymptomSummary.aspx" target="_blank">REPORT</a> | <a id="A1" href="#" runat="server" onServerClick="SignOut">SIGN OUT</a></td>
             </tr>
         </table>
     </div>

@@ -31,11 +31,11 @@ public partial class SymptomSummary : HealthServicePage
 
     protected void initializeDictionary()
     {
-        symptomNameTable.Add("Pain", pain_summary_table);
-        symptomNameTable.Add("Nausea", nausea_summary_table);
-        symptomNameTable.Add("Fatigue", fatigue_summary_table);
-        symptomNameTable.Add("Constipation", constipation_summary_table);
-        symptomNameTable.Add("Sleep", sleep_summary_table);
+        //symptomNameTable.Add("Pain", pain_summary_table);
+        //symptomNameTable.Add("Nausea", nausea_summary_table);
+        //symptomNameTable.Add("Fatigue", fatigue_summary_table);
+        //symptomNameTable.Add("Constipation", constipation_summary_table);
+        //symptomNameTable.Add("Sleep", sleep_summary_table);
     }
 
     protected void getPatientData()
@@ -124,21 +124,110 @@ public partial class SymptomSummary : HealthServicePage
 
     protected void populateSymptomValues()
     {
+     // Populate Series...
+        Dictionary<string, List<Symptom>> mySymptomDict = new Dictionary<string, List<Symptom>>();
         foreach (Symptom symptom in symptoms)
         {
-            Table table = symptomNameTable[symptom.SymptomName];
-            TableRow row = new TableRow();
-            c_PainSummaryTable.Rows.Add(row);
-
-            TableHeaderCell headerDateCell = new TableHeaderCell();
-            headerDateCell.Text = symptom.When.ToString();
-            row.Cells.Add(headerDateCell);
-
-            TableCell symptomValueCell = new TableCell();
-            symptomValueCell.Text = String.Format("{0:F2}", symptom.SymptomValue);
-            row.Cells.Add(symptomValueCell);
-            table.Rows.Add(row);
+            if (mySymptomDict.ContainsKey(symptom.SymptomName) == true)
+            {
+                List<Symptom> mySymptomList = mySymptomDict[symptom.SymptomName];
+                mySymptomList.Add(symptom);
+            }
+            else
+            {
+                List<Symptom> mySymptomList = new List<Symptom>();
+                mySymptomList.Add(symptom);
+                mySymptomDict.Add(symptom.SymptomName, mySymptomList);
+            }
         }
+
+        chartScript.Text = "<script type='text/javascript'>";
+        string collapse_series = "     series: [";
+        int totItem = mySymptomDict.Count;
+        string chartSetting ="     chart: {type: 'spline' },";
+        chartSetting += "     xAxis: {";
+        chartSetting += "        type: 'datetime',";
+        chartSetting += "        dateTimeLabelFormats: {";
+        chartSetting += "           month: '%e. %b',";
+        chartSetting += "           year: '%b'";
+        chartSetting += "        }";
+        chartSetting += "     },";
+        chartSetting += "     yAxis: {";
+        chartSetting += "        title: { text: 'Scale' },";
+        chartSetting += "        min: 0,";
+        chartSetting += "        max: 10,";
+        chartSetting += "        tickPositions: [0,1,2,3,4,5,6,7,8,9,10]";
+        chartSetting += "     },";
+
+        foreach (string key in mySymptomDict.Keys)
+        {
+            totItem--;
+            chartScript.Text += "$(function () {";
+            chartScript.Text += "  $('#"+key+"_graph').highcharts({";
+            chartScript.Text += "     title: {text: '"+key+" Summary' },";
+            chartScript.Text += chartSetting;
+            chartScript.Text += "     series: [{";
+            chartScript.Text += "       name: '"+key+" Symptom',";
+            chartScript.Text += "       data: [";
+            string series_data = "";
+            foreach (Symptom symptom in mySymptomDict[key])
+            {
+                if (mySymptomDict[key].IndexOf(symptom) == mySymptomDict[key].Count - 1)
+                {
+                    series_data += "         [Date.UTC(" + symptom.When.Year + ", " + (symptom.When.Month-1) + ", " + symptom.When.Day + ", " + symptom.When.Hour + ", " + symptom.When.Minute + ", " + symptom.When.Second + "), " + symptom.SymptomValue + "]";
+                }
+                else
+                {
+                    series_data += "         [Date.UTC(" + symptom.When.Year + ", " + (symptom.When.Month-1) + ", " + symptom.When.Day + ", " + symptom.When.Hour + ", " + symptom.When.Minute + ", " + symptom.When.Second + "), " + symptom.SymptomValue + "],";
+                }
+            }
+            chartScript.Text += series_data;
+            chartScript.Text += "       ]";
+            chartScript.Text += "     }]";
+            chartScript.Text += "  });";
+            chartScript.Text += "});";
+
+            // For collapsed series..
+            if (totItem == 0)
+            {
+                collapse_series += "{name: '" + key + " Symptom',";
+                collapse_series += " data: [" + series_data + "]}";
+            }
+            else
+            {
+                collapse_series += "{name: '" + key + " Symptom',";
+                collapse_series += " data: [" + series_data + "]},";
+            }
+        }
+        chartScript.Text += "</script>";
+
+        collapse_chartScript.Text = "<script type='text/javascript'> $(function () {";
+        collapse_chartScript.Text += "  $('#CollapseContainer').highcharts({";
+        collapse_chartScript.Text += "     title: {text: 'All Symptom Summary' },";
+        collapse_chartScript.Text += chartSetting;
+        collapse_chartScript.Text += collapse_series + "]";
+        collapse_chartScript.Text += "  });";
+        collapse_chartScript.Text += "});";
+        collapse_chartScript.Text += "</script>";
+
+        //Console.WriteLine(chartScript.Text);
+
+        //foreach (Symptom symptom in symptoms)
+        //{
+        //    Table table = symptomNameTable[symptom.SymptomName];
+        //    TableRow row = new TableRow();
+        //    c_PainSummaryTable.Rows.Add(row);
+
+        //    TableHeaderCell headerDateCell = new TableHeaderCell();
+        //    headerDateCell.Text = symptom.When.ToString();
+        //    //headerDateCell.Text = symptom.When.ToUniversalTime().ToString();
+        //    row.Cells.Add(headerDateCell);
+
+        //    TableCell symptomValueCell = new TableCell();
+        //    symptomValueCell.Text = String.Format("{0:F2}", symptom.SymptomValue);
+        //    row.Cells.Add(symptomValueCell);
+        //    table.Rows.Add(row);
+        //}
     }
 
     private bool isSymptom(Condition condition)
