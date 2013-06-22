@@ -30,6 +30,12 @@ a:hover,a:active {
 	font-family: calibri, sans-serif; font-size:25pt; font-style:normal;
 }
 
+.dialog_general {
+    font-family: calibri, sans-serif;
+    font-size: 12pt;
+    font-style: normal;
+}
+
 body {
 	margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;
 	padding: 0;

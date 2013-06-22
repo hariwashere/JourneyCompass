@@ -22,6 +22,24 @@ public partial class SymptomSummary : HealthServicePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Page.IsPostBack)
+        {
+            // HTTP Post
+            initChartDisplay.Text = "";
+            if (charts_sel.Checked)
+            {
+                initChartDisplay.Text = "<script type='text/javascript'>";
+                initChartDisplay.Text += "  $(function() {";
+                initChartDisplay.Text += "    $('#CollapseContainer').show();";
+                initChartDisplay.Text += "    $('#SeparateContainer').hide();";
+                initChartDisplay.Text += "  });";
+                initChartDisplay.Text += "</script>";
+            }
+            else
+            {
+                charts_sel.Checked = false;
+            }
+        }
         initializeDictionary();
         getPatientData();
         getBasicInfo();
@@ -38,9 +56,12 @@ public partial class SymptomSummary : HealthServicePage
         //symptomNameTable.Add("Sleep", sleep_summary_table);
     }
 
+    protected string user_info;
+    protected string user_name;
     protected void getPatientData()
     {
         patient_name.Text = PersonInfo.Name;
+        user_name = PersonInfo.Name;
     }
 
     protected void getBasicInfo()
@@ -53,6 +74,10 @@ public partial class SymptomSummary : HealthServicePage
         dob.Text = basicInfo.BirthYear.ToString();
         city.Text = basicInfo.City;
         state.Text = basicInfo.StateOrProvince;
+        user_info = "<b>Name:</b> " + PersonInfo.Name + "<br/>";
+        user_info += "<b>DOB:</b> " + basicInfo.BirthYear.ToString() + "<br/>";
+        user_info += "<b>City:</b> " + basicInfo.City + "<br/>";
+        user_info += "<b>State:</b> " + basicInfo.StateOrProvince + "<br/>";
     }
 
     protected void getSymptomSummary()
@@ -61,7 +86,7 @@ public partial class SymptomSummary : HealthServicePage
         DateTime to = DateTime.Now;
         String from_date_string = from_date.Text;
         if (String.IsNullOrEmpty(from_date_string))
-            from = DateTime.Now.AddDays(-7);
+            from = DateTime.Now.AddDays(-14);
         else
             from = DateTime.Parse(from_date_string + " 00:00:01 AM");
 
@@ -159,16 +184,30 @@ public partial class SymptomSummary : HealthServicePage
         chartSetting += "        tickPositions: [0,1,2,3,4,5,6,7,8,9,10]";
         chartSetting += "     },";
 
+        string chartData1 = "";
+        string chartData2 = "";
+        string chartData3 = "";
+        string exportChartData = "";
         foreach (string key in mySymptomDict.Keys)
         {
             totItem--;
+            chartData1 = "";
+            chartData2 = "";
+            chartData3 = "";
+
             chartScript.Text += "$(function () {";
             chartScript.Text += "  $('#"+key+"_graph').highcharts({";
-            chartScript.Text += "     title: {text: '"+key+" Summary' },";
-            chartScript.Text += chartSetting;
-            chartScript.Text += "     series: [{";
-            chartScript.Text += "       name: '"+key+" Symptom',";
-            chartScript.Text += "       data: [";
+            chartData1 += "     title: {text: '"+key+" Summary' },";
+            chartData1 += chartSetting;
+            chartData2 += "     tooltip: {";
+            chartData2 += "        formatter: function() {";
+            chartData2 += "            return Highcharts.dateFormat('%b %e, %Y [%I:%M:%S %p]', this.x)+'<br/>'+";
+            chartData2 += "                   '<span style=\"font-weight:bold; color:'+this.series.color+';\">'+ this.series.name +'</span>'+': '+ this.y;";
+            chartData2 += "        }";
+            chartData2 += "     },";
+            chartData3 += "     series: [{";
+            chartData3 += "       name: '" + key + " Symptom',";
+            chartData3 += "       data: [";
             string series_data = "";
             foreach (Symptom symptom in mySymptomDict[key])
             {
@@ -181,9 +220,11 @@ public partial class SymptomSummary : HealthServicePage
                     series_data += "         [Date.UTC(" + symptom.When.Year + ", " + (symptom.When.Month-1) + ", " + symptom.When.Day + ", " + symptom.When.Hour + ", " + symptom.When.Minute + ", " + symptom.When.Second + "), " + symptom.SymptomValue + "],";
                 }
             }
-            chartScript.Text += series_data;
-            chartScript.Text += "       ]";
-            chartScript.Text += "     }]";
+            chartData3 += series_data;
+            chartData3 += "       ]";
+            chartData3 += "     }]";
+            chartScript.Text += chartData1+chartData2+chartData3;
+
             chartScript.Text += "  });";
             chartScript.Text += "});";
 
@@ -192,12 +233,15 @@ public partial class SymptomSummary : HealthServicePage
             {
                 collapse_series += "{name: '" + key + " Symptom',";
                 collapse_series += " data: [" + series_data + "]}";
+                exportChartData += ("{"+chartData1+chartData3+"};");
             }
             else
             {
                 collapse_series += "{name: '" + key + " Symptom',";
                 collapse_series += " data: [" + series_data + "]},";
+                exportChartData += ("{"+chartData1+chartData3+"};"+"!#!");
             }
+
         }
         chartScript.Text += "</script>";
 
@@ -209,6 +253,15 @@ public partial class SymptomSummary : HealthServicePage
         collapse_chartScript.Text += "  });";
         collapse_chartScript.Text += "});";
         collapse_chartScript.Text += "</script>";
+
+        // This is is a script to call export server and get images back.
+        //exportForm.Text  = "<form id=\"exportForm\" action=\"http://localhost:8080/export/\" method=\"post\">";
+        exportForm.Text  = "<form id=\"exportForm\" action=\"http://journeycompass.i3l.gatech.edu:8080/highcharts-export/\" method=\"post\">";
+        exportForm.Text += "  <input type=\"hidden\" name=\"options\" value=\"" + exportChartData + "\" />";
+        exportForm.Text += "  <input type=\"hidden\" name=\"type\" value=\"image/png\" />";
+        exportForm.Text += "  <input type=\"hidden\" name=\"constr\" value=\"Chart\" />";
+        exportForm.Text += "  <input type=\"submit\" value=\"Send to physician\" style=\"width:500px;height:55px;float:left\" />";
+        exportForm.Text += "</form>";
 
         //Console.WriteLine(chartScript.Text);
 
@@ -252,5 +305,4 @@ public partial class SymptomSummary : HealthServicePage
         // ShowError(ex);
         throw ex;
     }
-
 }

@@ -70,6 +70,15 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#c_pain").val(5);
+            $("#c_nausea").val(5);
+            $("#c_fatigue").val(5);
+            $("#c_sleep").val(5);
+            $("#c_constipation").val(5);
+        });
+    </script>
 </head>
 <body>
     <table width="100%" border="0" cellpadding="5">
