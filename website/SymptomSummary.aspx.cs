@@ -43,6 +43,7 @@ public partial class SymptomSummary : HealthServicePage
         initializeDictionary();
         getPatientData();
         getBasicInfo();
+        getProviderInfo();
         getSymptomSummary();
         PopulateSymptomTable();
     }
@@ -74,10 +75,35 @@ public partial class SymptomSummary : HealthServicePage
         dob.Text = basicInfo.BirthYear.ToString();
         city.Text = basicInfo.City;
         state.Text = basicInfo.StateOrProvince;
-        user_info = "<b>Name:</b> " + PersonInfo.Name + "<br/>";
-        user_info += "<b>DOB:</b> " + basicInfo.BirthYear.ToString() + "<br/>";
-        user_info += "<b>City:</b> " + basicInfo.City + "<br/>";
-        user_info += "<b>State:</b> " + basicInfo.StateOrProvince + "<br/>";
+        user_info = "<b>Name:</b> " + PersonInfo.Name + ",    ";
+        user_info += "<b>Birth Year:</b> " + basicInfo.BirthYear.ToString() + "<br/>";
+        user_info += "<b>City, State:</b> " + basicInfo.City + ", "+basicInfo.StateOrProvince + "<br/>";
+    }
+
+    protected string ProviderInfoMenu;
+    protected void getProviderInfo()
+    {
+        HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
+        HealthRecordFilter filter = new HealthRecordFilter(Person.TypeId);
+        searcher.Filters.Add(filter);
+        HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
+
+        ProviderInfoMenu = "<select id=\"ProviderInfo\">";
+        String optionStr = "";
+        foreach (Person Provider in items)
+        {
+            if (Provider.PersonType.Text.Equals("Provider"))
+            {
+                optionStr = optionStr + "<option value=\"" + Provider.Name + "\">" + Provider.Name + "</option>";
+            }
+        }
+
+        if (optionStr == "")
+        {
+            optionStr = "<option value=\"Floyd\">Floyd</option><option value=\"Floyd\">Harbin</option><option value=\"Floyd\">Redmond</option>";
+        }
+
+        ProviderInfoMenu = ProviderInfoMenu + optionStr + "</select>";
     }
 
     protected void getSymptomSummary()
@@ -91,7 +117,6 @@ public partial class SymptomSummary : HealthServicePage
             from = DateTime.Parse(from_date_string + " 00:00:01 AM");
 
         HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
-
         HealthRecordFilter filter = new HealthRecordFilter(Condition.TypeId);
         filter.CreatedDateMax = to;
         filter.CreatedDateMin = from;
@@ -245,6 +270,8 @@ public partial class SymptomSummary : HealthServicePage
         }
         chartScript.Text += "</script>";
 
+        // Add collpased chart to exportChartData.
+        exportChartData += ("!#!"+"{title: {text: 'All Symptom Summary' },"+chartSetting+collapse_series+"]};");
         collapse_chartScript.Text = "<script type='text/javascript'> $(function () {";
         collapse_chartScript.Text += "  $('#CollapseContainer').highcharts({";
         collapse_chartScript.Text += "     title: {text: 'All Symptom Summary' },";
@@ -260,7 +287,7 @@ public partial class SymptomSummary : HealthServicePage
         exportForm.Text += "  <input type=\"hidden\" name=\"options\" value=\"" + exportChartData + "\" />";
         exportForm.Text += "  <input type=\"hidden\" name=\"type\" value=\"image/png\" />";
         exportForm.Text += "  <input type=\"hidden\" name=\"constr\" value=\"Chart\" />";
-        exportForm.Text += "  <input type=\"submit\" value=\"Send to physician\" style=\"width:500px;height:55px;float:left\" />";
+        exportForm.Text += "  <input id=\"exportFormButton\" type=\"submit\" value=\"Send to physician\" style=\"width:100%\" />";
         exportForm.Text += "</form>";
 
         //Console.WriteLine(chartScript.Text);
@@ -297,12 +324,12 @@ public partial class SymptomSummary : HealthServicePage
     {
         Exception ex = Server.GetLastError();
 
-        if (ex is HealthServiceCredentialTokenExpiredException)
+        if (ex is HealthServiceCredentialTokenExpiredException || ex is HealthServiceAccessDeniedException)
         {
             WebApplicationUtilities.RedirectToLogOn(HttpContext.Current);
         }
 
-        // ShowError(ex);
-        throw ex;
+        //ShowError(ex);
+        // throw ex;
     }
 }

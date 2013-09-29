@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>JourneyCompass</title>
+    <link rel="icon" type="image/png" href="mjcicon.png" />
     <link rel="stylesheet" type="text/css" href="includes/theme.css" />
     <link rel="stylesheet" type="text/css" href="jquery/css/smoothness/jquery-ui-1.10.3.custom.min.css" />
     <script src="jquery/js/jquery-1.9.1.js"></script>
@@ -142,7 +143,7 @@
                                             <tr>
                                                 <td style="text-align: right; width: 150px">Pain scale: </td>
                                                 <td>
-                                                    <asp:TextBox ID="c_pain" runat="server" Text="5" Width="7" />
+                                                    <asp:TextBox ID="c_pain" runat="server" Text="5" Style="width:15px" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -156,7 +157,7 @@
                                             <tr>
                                                 <td style="text-align: right">Nausea scale: </td>
                                                 <td>
-                                                    <asp:TextBox ID="c_nausea" runat="server" Text="5" Width="7" />
+                                                    <asp:TextBox ID="c_nausea" runat="server" Text="5" Style="width:15px" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -170,7 +171,7 @@
                                             <tr>
                                                 <td style="text-align: right">Fatigue scale: </td>
                                                 <td>
-                                                    <asp:TextBox ID="c_fatigue" runat="server" Text="5" Width="7" />
+                                                    <asp:TextBox ID="c_fatigue" runat="server" Text="5" Style="width:15px" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -184,7 +185,7 @@
                                             <tr>
                                                 <td style="text-align: right">Constipation scale:</td>
                                                 <td>
-                                                    <asp:TextBox ID="c_constipation" runat="server" Text="5" Width="7" />
+                                                    <asp:TextBox ID="c_constipation" runat="server" Text="5" Style="width:15px" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -198,7 +199,7 @@
                                             <tr>
                                                 <td style="text-align: right">Sleep scale: </td>
                                                 <td>
-                                                    <asp:TextBox ID="c_sleep" runat="server" Text="5" Width="7" />
+                                                    <asp:TextBox ID="c_sleep" runat="server" Text="5" Style="width:15px" />
                                                 </td>
                                             </tr>
                                             <tr>

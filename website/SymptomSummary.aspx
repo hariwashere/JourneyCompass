@@ -33,53 +33,6 @@
         };
     </script>
 
-    <script type="text/javascript">
-        function PostSendEmailReq() {
-            $("#dialog-sendreport").dialog("close");
-            $("#dialog-aftersend").html("<p>Please wait until your mail is sent out<br/>This may take a while..</p>");
-            $("#dialog-aftersend").dialog({
-                width: "auto",
-                height: "auto",
-                modal: true,
-                dialogClass: 'dialog_general',
-                show: "clip"
-            });
-
-            p_info = $("input[name='patient_info']").val();
-
-            p_note = $("textarea[name='note']").val();
-            // take care of html tags, ' and ".
-            p_note = p_note.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            //p_note = p_note.replace(/'/g, "''");
-            p_note = p_note.replace(/"/g, '\\"');
-            p_note = p_note.escapeSpecialChars(p_note);
-
-            p_files = $("input[name='filenames']").val();
-            p_to = $("select[name='to']").val();
-            p_subject = "Symptom Report for <%=user_name%>";
-            p_patient = "<%=user_name%>";
-            p_jsondata = '{ "to":"' + p_to + '", "subject":"' + p_subject + '", "patient_info": "' + p_info + '", "note": "' + p_note + '", "charts": "' + p_files + '", "patient": "' + p_patient + '" }';
-            
-            // Make sure JSON data does not have any special characters in it.
-            // p_jsondata = p_jsondata.escapeSpecialChars(p_jsondata);
-
-            $.ajax({
-                url: '/Service.svc/SendEmail',
-                cache: false,
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: p_jsondata,
-                success: function (data) {
-                    $("#dialog-aftersend").html("<p>" + data.d + "</p>" + "You can close this box now.");
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    $("#dialog-aftersend").dialog("close");
-                    alert("in SendMail service error: " + textStatus + " : " + errorThrown);
-                }
-            });            
-        }
-
-    </script>
     <script type='text/javascript'>
         var formConfirm = null;
         $(function () {
@@ -89,13 +42,15 @@
                 beforeSubmit: function () {
                     if (formConfirm == null) {
                         $("#dialog-report").dialog({
+                            open: function () { $(".ui-dialog-titlebar-close").hide(); },
                             resizable: false,
+                            width: "auto",
                             height: "auto",
                             modal: true,
                             show: "clip",
                             dialogClass: 'dialog_general',
                             buttons: {
-                                "Yes, Continue...": function () {
+                                "Yes, Prepare...": function () {
                                     $(this).dialog("close");
                                     formConfirm = true;
                                     $("#exportForm").submit();
@@ -111,6 +66,7 @@
                         if (formConfirm != null)
                             formConfirm = null;
                         $("#dialog-preparereport").dialog({
+                            open: function () { $(".ui-dialog-titlebar-close").hide(); },
                             width: "auto",
                             height: "auto",
                             modal: true,
@@ -124,11 +80,95 @@
                     $("#dialog-preparereport").dialog("close");
                     $("input[name='filenames']").val(data.filenames);
                     $("#dialog-sendreport").dialog({
+                        closeOnEscape: false,
+                        open: function () { $(".ui-dialog-titlebar-close").hide(); },
                         width: "auto",
                         height: "auto",
                         modal: true,
                         dialogClass: 'dialog_general',
-                        show: "clip"
+                        show: "clip",
+                        buttons: {
+                            "Send Report": function () {
+                                p_to = $("input[name='to']").val();
+                                if (p_to == "" || p_to == "You must enter Clinic Name") {
+                                    $("input[name='to']").val("You must enter Clinic Name");
+                                    return false;
+                                }
+                                $(this).dialog("close");
+                                $("#dialog-aftersend").html("<p><table border='0'><tr><td valign='top' width='38'><img src='images/icon_processing.gif' border='0' /></td><td valign='top'>Please wait until your mail is sent out<br/>This may take a while..</td></tr></table></p>");
+                                $("#dialog-aftersend").dialog({
+                                    open: function () { $(".ui-dialog-titlebar-close").show(); },
+                                    width: "auto",
+                                    height: "auto",
+                                    modal: true,
+                                    dialogClass: 'dialog_general',
+                                    show: "clip"
+                                });
+                                p_info = $("input[name='patient_info']").val();
+                                p_note = $("textarea[name='note']").val();
+                                p_note = p_note.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                                p_note = p_note.replace(/"/g, '\\"');
+                                p_note = p_note.escapeSpecialChars(p_note);
+                                p_provider = "<b>Provider</b>: " + $("#ProviderInfo").val();
+                                p_files = $("input[name='filenames']").val();
+                                p_subject = "Symptom Report for <%=user_name%>";
+                                p_patient = "<%=user_name%>";
+                                p_jsondata = '{ "to":"' + p_to + '", "subject":"' + p_subject + '", "patient_info": "' + p_info + '", "note": "' + p_note + '", "charts": "' + p_files + '", "provider": "'+p_provider+'", "patient": "' + p_patient + '" }';
+
+                                // Make sure JSON data does not have any special characters in it.
+                                // p_jsondata = p_jsondata.escapeSpecialChars(p_jsondata);
+
+                                $.ajax({
+                                    url: '/Service.svc/SendEmail',
+                                    cache: false,
+                                    type: 'POST',
+                                    contentType: 'application/json; charset=utf-8',
+                                    data: p_jsondata,
+                                    success: function (data) {
+                                        $("#dialog-aftersend").html("<p>" + data.d + "</p>" + "You can close this box now.");
+                                    },
+                                    error: function (xhr, textStatus, errorThrown) {
+                                        $("#dialog-aftersend").html("in SendMail service error: " + textStatus + "<br/>" + errorThrown);
+                                    }
+                                });
+                            },
+                            Cancel: function () {
+                                $(this).dialog("close");
+                                $("#dialog-aftersend").html("<p><table border='0'><tr><td valign='top' width='38'><img src='images/icon_processing.gif' border='0' /></td><td valign='top'>Canceling the report<br/>Please wait..</td></tr></table></p>");
+                                $("#dialog-aftersend").dialog({
+                                    open: function () { $(".ui-dialog-titlebar-close").show(); },
+                                    width: "auto",
+                                    height: "auto",
+                                    modal: true,
+                                    dialogClass: 'dialog_general',
+                                    show: "clip"
+                                });
+                                p_info = $("input[name='patient_info']").val();
+                                p_note = "";
+                                p_files = $("input[name='filenames']").val();
+                                p_provider = "Provider: " + $("#ProviderInfo").val();
+                                p_to = "";
+                                p_subject = "Symptom Report for <%=user_name%>";
+                                p_patient = "<%=user_name%>";
+                                p_jsondata = '{ "to":"' + p_to + '", "subject":"' + p_subject + '", "patient_info": "' + p_info + '", "note": "' + p_note + '", "charts": "' + p_files + '", "provider": "' + p_provider + '", "patient": "' + p_patient + '" }';
+
+                                $.ajax({
+                                    url: '/Service.svc/SendEmail',
+                                    cache: false,
+                                    type: 'POST',
+                                    contentType: 'application/json; charset=utf-8',
+                                    data: p_jsondata,
+                                    success: function (data) {
+                                        $("#dialog-aftersend").html("<p>" + data.d + "</p>" + "You can close this box now.");
+                                    },
+                                    error: function (xhr, textStatus, errorThrown) {
+                                        $("#dialog-aftersend").html("Error when canceling the report: " + textStatus + "<br/>" + errorThrown);
+                                    }
+                                });
+
+                                return false;
+                            }
+                        }
                     });
                 },
                 error: function (xhr, textStatus, errorThrown) {
@@ -141,6 +181,13 @@
     </script>
 
     <script type="text/javascript">
+        $(function () {
+            $('#charts_sel').button();
+            $("label[for='charts_sel']").width(550);
+            $('#refresh').button();
+            $('#exportFormButton').button();
+        });
+
         $(function () {
             $("#from_date").datepicker();
         });
@@ -179,7 +226,7 @@
     <table style="border:none;margin:0px 0px 0px 0px;">
         <tr>
             <td>
-                <div style="margin-left: 70px; margin-right: 70px;">
+                <div style="margin-left: 50px; margin-right: 50px;">
                     Name:
                     <asp:Label ID="patient_name" runat="Server" />
                     <br />
@@ -196,23 +243,27 @@
             </td>
         </tr>
     </table>
-    <table style="border:none;">
+    <table style="border:none;width:1170px">
         <tr>
             <td>
                 <form id="form1" runat="server">
-                    <div style="margin-left: 70px; margin-right: 0px;">
+                    <div style="margin-left: 50px; margin-right: 0px;">
                         Please select the date range (Default is 2 weeks):
-                        <asp:TextBox ID="from_date" runat="server" />
-                        until Today       
+                        from <asp:TextBox ID="from_date" runat="server" />
+                        until Today. (Press Refresh Graph Button after new date is selected.)
                         <br /><br />
-                        <asp:Checkbox id="charts_sel" runat="server" Text="Check this to collapse all symptom charts." /> 
-                        <br /><br />
-                        <asp:Button ID="refresh" Text="Refresh Graph" runat="server" style="width:500px;height:55px;float:right;"/>
+                        <asp:Checkbox id="charts_sel" runat="server" Text="Collapse/Uncollapse Symptom Charts"/> <asp:Button ID="refresh" Text="Refresh Graph" runat="server" style="width:550px"/>
                     </div>
                 </form>
             </td>
-            <td style="vertical-align:bottom;">
-                <asp:Literal ID="exportForm" runat="server" />
+        </tr>
+    </table>
+    <table style="border:none;width:1170px">
+        <tr>
+            <td>
+                <div style="margin-left: 50px; margin-right: 0px;">
+                    <asp:Literal ID="exportForm" runat="server" />
+                </div>
             </td>
         </tr>
     </table>
@@ -248,27 +299,29 @@
         </div>
     </div>
     <div id="dialog-report" title="Symptom Report Request" style="display: none;" >
-        <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This will prepare a report for your physician. Do you want to start now?</p>
+        <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This will prepare a report for your physician. <br />Do you want to start preparing a report?</p>
     </div>
     
     <div id="dialog-preparereport" title="Prepare Report" style="display: none;" >
-        <p>Processing ... Please wait until your report is generated..</p>
+        <p><table border='0'><tr><td valign='top' width='38'><img src='images/icon_processing.gif' border='0' /></td><td valign='top'>Processing ... <br />Please wait until your report is generated.</td></tr></table></p>
     </div>
 
     <div id="dialog-sendreport" title="Send Report" style="display:none;" >
         <table border="0">
             <tr>
-                <td style="float:right"><b>To:</b></td>
+                <td style="float:right"><b>Clinic Name:</b></td>
                 <td>
-                    <select name="to">
-                        <option value="harbinclinic@gadirect.net">Harbin Clinic</option>
-                        <option value="sheryl.testgahie@gadirect.net">Sheryl TestGaHIE (Test Acct)</option>
-                        <option value="myungchoi@hisp.i3l.gatech.edu">I3L (Test via I3L Direct)</option>
-                    </select>
+                    <input type="text" name="to" size="50" value=""/>
                 </td>
             </tr>
             <tr>
-                <td style="float:right"><b>Subject:</b></td><td>Patient Symportion Report for <%=user_name%></td>
+                <td style="float:right"><b>Select Provider:</b></td>
+                <td>
+                    <%=ProviderInfoMenu%>
+                </td>
+            </tr>
+            <tr>
+                <td style="float:right"><b>Subject:</b></td><td>Patient Symptom Report for <%=user_name%></td>
             </tr>
             <tr>
                 <td align="top" style="float:right;"><b>Note:</b></td>
@@ -276,8 +329,7 @@
             </tr>
         </table>
         <input type="hidden" name="patient_info" value="<%=user_info%>"/>
-        <input type="hidden" name="filenames" value=""/><br/><br/>
-        <button onclick="return PostSendEmailReq();" style="width:100%;">Submit to Send Email</button>
+        <input type="hidden" name="filenames" value=""/><br/>
     </div>
 
     <div id="dialog-aftersend" title="Send Report" style="display:none;" ></div>
